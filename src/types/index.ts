@@ -18,6 +18,26 @@ export type FitStatus =
   | 'mixed-fit'
   | 'low-alignment';
 
+export type AuthProvider = 'linkedin' | 'email' | 'none';
+
+export interface ImportedRole {
+  id: string;
+  title: string;
+  company: string;
+  startDate: string;
+  endDate: string | null;
+  description: string;
+}
+
+export interface ImportedProfile {
+  source: 'linkedin';
+  fullName: string;
+  headline: string;
+  summary: string;
+  roles: ImportedRole[];
+  importedAt: string;
+}
+
 export interface Candidate {
   id: string;
   firstName: string;
@@ -27,8 +47,12 @@ export interface Candidate {
   summary: string;
   yearsExperience: number;
   workStyleTags: string[];
-  signalProfileId: string;
+  signalProfileId: string | null;
   avatarInitials: string;
+  authProvider?: AuthProvider;
+  importedProfile?: ImportedProfile;
+  profileBasicsCompleted?: boolean;
+  linkedinConnected?: boolean;
 }
 
 export interface RankingItem {

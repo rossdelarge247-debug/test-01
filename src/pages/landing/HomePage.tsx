@@ -19,7 +19,7 @@ export function HomePage() {
         </p>
         <div className="flex items-center justify-center gap-4 flex-wrap">
           <Link
-            to="/candidate/onboarding"
+            to="/candidate/signup"
             className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 transition-colors text-sm"
           >
             Build my signal profile
@@ -124,7 +124,7 @@ export function HomePage() {
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <Link
-              to="/candidate/onboarding"
+              to="/candidate/signup"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-900 font-medium rounded-xl hover:bg-gray-100 transition-colors text-sm"
             >
               I'm a candidate

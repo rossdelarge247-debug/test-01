@@ -1,11 +1,15 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from './components/layout/Navbar';
+import { CandidateSessionProvider } from './context/CandidateSessionContext';
 
 // Landing
 import { HomePage } from './pages/landing/HomePage';
 import { HowItWorksPage } from './pages/landing/HowItWorksPage';
 
 // Candidate
+import { CandidateSignUp } from './pages/candidate/CandidateSignUp';
+import { LinkedInImport } from './pages/candidate/LinkedInImport';
+import { ReviewImportedProfile } from './pages/candidate/ReviewImportedProfile';
 import { CandidateOnboarding } from './pages/candidate/CandidateOnboarding';
 import { RoleFamilySelection } from './pages/candidate/RoleFamilySelection';
 import { SignalTaskFlow } from './pages/candidate/SignalTaskFlow';
@@ -27,37 +31,44 @@ import { FitAnalysisPage } from './pages/analysis/FitAnalysisPage';
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <Routes>
-          {/* Public */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/how-it-works" element={<HowItWorksPage />} />
+      <CandidateSessionProvider>
+        <div className="min-h-screen bg-gray-50">
+          <Navbar />
+          <Routes>
+            {/* Public */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/how-it-works" element={<HowItWorksPage />} />
 
-          {/* Candidate */}
-          <Route path="/candidate/onboarding" element={<CandidateOnboarding />} />
-          <Route path="/candidate/role-family" element={<RoleFamilySelection />} />
-          <Route path="/candidate/signal-tasks" element={<SignalTaskFlow />} />
-          <Route path="/candidate/profile-complete" element={<ProfileComplete />} />
-          <Route path="/candidate/dashboard" element={<CandidateDashboard />} />
-          <Route path="/candidate/profile" element={<CandidateProfile />} />
-          <Route path="/candidate/profile/:id" element={<CandidateProfile />} />
-          <Route path="/candidate/fit/:id" element={<CandidateFitExplorer />} />
+            {/* Candidate — sign-up & LinkedIn import */}
+            <Route path="/candidate/signup" element={<CandidateSignUp />} />
+            <Route path="/candidate/linkedin-import" element={<LinkedInImport />} />
+            <Route path="/candidate/review-import" element={<ReviewImportedProfile />} />
 
-          {/* Employer */}
-          <Route path="/employer/onboarding" element={<EmployerOnboarding />} />
-          <Route path="/employer/dashboard" element={<EmployerDashboard />} />
-          <Route path="/employer/create-fit-pack" element={<CreateFitPack />} />
-          <Route path="/employer/fit-pack/:id" element={<FitPackDetail />} />
-          <Route path="/employer/candidates/:roleId" element={<CandidateComparison />} />
+            {/* Candidate — signal flow */}
+            <Route path="/candidate/onboarding" element={<CandidateOnboarding />} />
+            <Route path="/candidate/role-family" element={<RoleFamilySelection />} />
+            <Route path="/candidate/signal-tasks" element={<SignalTaskFlow />} />
+            <Route path="/candidate/profile-complete" element={<ProfileComplete />} />
+            <Route path="/candidate/dashboard" element={<CandidateDashboard />} />
+            <Route path="/candidate/profile" element={<CandidateProfile />} />
+            <Route path="/candidate/profile/:id" element={<CandidateProfile />} />
+            <Route path="/candidate/fit/:id" element={<CandidateFitExplorer />} />
 
-          {/* Analysis */}
-          <Route path="/analysis/:candidateId/:roleId" element={<FitAnalysisPage />} />
+            {/* Employer */}
+            <Route path="/employer/onboarding" element={<EmployerOnboarding />} />
+            <Route path="/employer/dashboard" element={<EmployerDashboard />} />
+            <Route path="/employer/create-fit-pack" element={<CreateFitPack />} />
+            <Route path="/employer/fit-pack/:id" element={<FitPackDetail />} />
+            <Route path="/employer/candidates/:roleId" element={<CandidateComparison />} />
 
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </div>
+            {/* Analysis */}
+            <Route path="/analysis/:candidateId/:roleId" element={<FitAnalysisPage />} />
+
+            {/* Fallback */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+      </CandidateSessionProvider>
     </BrowserRouter>
   );
 }

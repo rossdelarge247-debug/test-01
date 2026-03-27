@@ -1,15 +1,39 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Clock, RotateCcw, Layers } from 'lucide-react';
+import { ArrowRight, Clock, RotateCcw, Layers, CheckCircle } from 'lucide-react';
+import { useCandidateSession } from '../../context/CandidateSessionContext';
 
 export function CandidateOnboarding() {
+  const { importedProfile } = useCandidateSession();
+  const isLinkedInImport = !!importedProfile;
+  const firstName = importedProfile?.fullName.split(' ')[0];
+
   return (
     <div className="max-w-2xl mx-auto px-6 py-16">
-      <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wider mb-3">Getting started</p>
+      {/* LinkedIn import confirmation banner */}
+      {isLinkedInImport && (
+        <div className="flex items-start gap-3 p-4 bg-emerald-50 border border-emerald-100 rounded-xl mb-8">
+          <CheckCircle size={18} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold text-emerald-800 mb-0.5">
+              Profile basics imported{firstName ? `, ${firstName}` : ''}
+            </p>
+            <p className="text-xs text-emerald-700 leading-relaxed">
+              Your name, headline, summary, and recent roles are saved. Now let's build the part a CV can't show.
+            </p>
+          </div>
+        </div>
+      )}
+
+      <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wider mb-3">
+        {isLinkedInImport ? 'Step 2 of 3' : 'Getting started'}
+      </p>
       <h1 className="text-4xl font-semibold text-gray-900 tracking-tight mb-4">
-        Build your signal profile
+        {isLinkedInImport ? 'Now build your signal profile' : 'Build your signal profile'}
       </h1>
       <p className="text-lg text-gray-500 leading-relaxed mb-12">
-        Your profile is built from short, role-relevant responses that show how you think, prioritise, and work through trade-offs.
+        {isLinkedInImport
+          ? 'Your profile basics are in place. Next, show how you actually think, prioritise, and work through trade-offs — the part that makes matching meaningful.'
+          : 'Your profile is built from short, role-relevant responses that show how you think, prioritise, and work through trade-offs.'}
       </p>
 
       <div className="space-y-4 mb-12">
