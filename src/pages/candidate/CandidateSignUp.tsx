@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Mail, Shield } from 'lucide-react';
+import { ArrowRight, Mail, Shield, FileText } from 'lucide-react';
 import { useCandidateSession } from '../../context/CandidateSessionContext';
 
 function LinkedInIcon() {
@@ -85,6 +85,24 @@ export function CandidateSignUp() {
         <span className="text-xs text-gray-400">or</span>
         <div className="flex-1 h-px bg-gray-200" />
       </div>
+
+      {/* CV upload option */}
+      <button
+        onClick={() => navigate('/candidate/cv-upload')}
+        className="w-full flex items-center gap-4 px-5 py-4 bg-white border border-gray-200 rounded-2xl hover:border-gray-300 hover:bg-gray-50 transition-all group text-left"
+      >
+        <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 flex-shrink-0">
+          <FileText size={18} />
+        </div>
+        <div className="flex-1">
+          <p className="font-semibold text-gray-700 text-sm">Upload my CV instead</p>
+          <p className="text-xs text-gray-400 mt-0.5">PDF, Word, or plain text — we extract the basics</p>
+        </div>
+        <ArrowRight
+          size={16}
+          className="text-gray-300 group-hover:text-gray-500 transition-colors flex-shrink-0"
+        />
+      </button>
 
       {/* Email option */}
       <button

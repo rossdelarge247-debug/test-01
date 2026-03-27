@@ -212,7 +212,7 @@ export function ReviewImportedProfile() {
 
   function handleContinue() {
     setImportedProfile(profile);
-    navigate('/candidate/onboarding');
+    navigate('/candidate/recommended-signals');
   }
 
   const [firstName, ...rest] = profile.fullName.split(' ');
@@ -341,7 +341,7 @@ export function ReviewImportedProfile() {
       {/* Actions */}
       <div className="mt-8 flex items-center justify-between">
         <button
-          onClick={() => navigate('/candidate/onboarding')}
+          onClick={() => navigate('/candidate/recommended-signals')}
           className="text-sm text-gray-400 hover:text-gray-700 transition-colors"
         >
           Skip for now

@@ -10,6 +10,8 @@ import { HowItWorksPage } from './pages/landing/HowItWorksPage';
 import { CandidateSignUp } from './pages/candidate/CandidateSignUp';
 import { LinkedInImport } from './pages/candidate/LinkedInImport';
 import { ReviewImportedProfile } from './pages/candidate/ReviewImportedProfile';
+import { CVUpload } from './pages/candidate/CVUpload';
+import { RecommendedSignals } from './pages/candidate/RecommendedSignals';
 import { CandidateOnboarding } from './pages/candidate/CandidateOnboarding';
 import { RoleFamilySelection } from './pages/candidate/RoleFamilySelection';
 import { SignalTaskFlow } from './pages/candidate/SignalTaskFlow';
@@ -43,6 +45,8 @@ export default function App() {
             <Route path="/candidate/signup" element={<CandidateSignUp />} />
             <Route path="/candidate/linkedin-import" element={<LinkedInImport />} />
             <Route path="/candidate/review-import" element={<ReviewImportedProfile />} />
+            <Route path="/candidate/cv-upload" element={<CVUpload />} />
+            <Route path="/candidate/recommended-signals" element={<RecommendedSignals />} />
 
             {/* Candidate — signal flow */}
             <Route path="/candidate/onboarding" element={<CandidateOnboarding />} />
