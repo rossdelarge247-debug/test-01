@@ -53,6 +53,8 @@ export interface SignalTask {
   rankingItems?: RankingItem[];
   tradeoffOptions?: TradeoffOption[];
   critiqueArtifact?: string;
+  sketchPrompt?: string;
+  sketchPlaceholder?: string;
   extractedTags?: string[];
   dimension?: string;
   dimensionScore?: number;
