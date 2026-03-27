@@ -55,6 +55,7 @@ export const BLANK_SIGNAL_TASKS: SignalTask[] = [
       'A senior stakeholder wants a solution committed this week, but the evidence is weak and key users have not been consulted. What do you do?',
     timeLimit: 7,
     responseFormat: 'short written response (max 300 words)',
+    dimension: 'stakeholder-sensitivity',
   },
   {
     id: 'task-4',
@@ -66,6 +67,7 @@ export const BLANK_SIGNAL_TASKS: SignalTask[] = [
     responseFormat: 'short text',
     critiqueArtifact:
       '"We need to redesign the onboarding experience. Users are dropping off. The project will take 8 weeks. We need wireframes and a user journey map. Deliverables due end of month."',
+    dimension: 'structured-thinking',
   },
   {
     id: 'task-5',

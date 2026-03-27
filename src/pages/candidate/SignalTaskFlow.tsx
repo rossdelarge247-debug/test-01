@@ -9,6 +9,10 @@ import { TradeoffTask } from '../../components/tasks/TradeoffTask';
 import { ScenarioTask } from '../../components/tasks/ScenarioTask';
 import { CritiqueTask } from '../../components/tasks/CritiqueTask';
 import { WhiteboardTask } from '../../components/tasks/WhiteboardTask';
+import { SignalAnalysisCard } from '../../components/tasks/SignalAnalysisCard';
+import { scoreResponse, type SignalAnalysis } from '../../services/signalAnalysis';
+
+type AnalysisPhase = 'idle' | 'analysing' | 'done' | 'error';
 
 const ALL_TASKS = [...BLANK_SIGNAL_TASKS, ...SKETCH_TASKS];
 
@@ -23,6 +27,9 @@ const TASK_TYPE_LABELS: Record<string, string> = {
 export function SignalTaskFlow() {
   const [currentTask, setCurrentTask] = useState(0);
   const [responses, setResponses] = useState<Record<string, unknown>>({});
+  const [analysisPhase, setAnalysisPhase] = useState<AnalysisPhase>('idle');
+  const [analysisResult, setAnalysisResult] = useState<SignalAnalysis | undefined>();
+  const [analysisError, setAnalysisError] = useState<string | undefined>();
   const navigate = useNavigate();
   const { recommendedTaskIds } = useCandidateSession();
 
@@ -46,11 +53,23 @@ export function SignalTaskFlow() {
     label: t.type === 'sketch' ? 'Sketch' : t.type.charAt(0).toUpperCase() + t.type.slice(1),
   }));
 
+  // Text tasks that trigger AI analysis
+  const isAnalysableTask = task.type === 'scenario' || task.type === 'critique';
+
   function handleResponse(value: unknown) {
     setResponses((prev) => ({ ...prev, [task.id]: value }));
+    // Reset analysis state when the user edits their response
+    if (analysisPhase !== 'idle') {
+      setAnalysisPhase('idle');
+      setAnalysisResult(undefined);
+      setAnalysisError(undefined);
+    }
   }
 
-  function handleNext() {
+  function advanceTask() {
+    setAnalysisPhase('idle');
+    setAnalysisResult(undefined);
+    setAnalysisError(undefined);
     if (isLast) {
       sessionStorage.setItem('signal_responses', JSON.stringify(responses));
       navigate('/candidate/profile-complete');
@@ -60,9 +79,42 @@ export function SignalTaskFlow() {
     }
   }
 
+  async function handleNext() {
+    // For text tasks: first click runs analysis, second click advances
+    if (isAnalysableTask && analysisPhase === 'idle' && task.dimension) {
+      const responseText = responses[task.id] as string | undefined;
+      if (!responseText) return;
+
+      setAnalysisPhase('analysing');
+      try {
+        const result = await scoreResponse({
+          taskTitle: task.title,
+          taskInstructions: task.instructions,
+          candidateResponse: responseText,
+          critiqueArtifact: task.critiqueArtifact,
+          dimension: task.dimension,
+        });
+        setAnalysisResult(result);
+        setAnalysisPhase('done');
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : 'Analysis failed';
+        setAnalysisError(msg.includes('VITE_ANTHROPIC_API_KEY') ? 'API key not configured — set VITE_ANTHROPIC_API_KEY to enable live analysis.' : msg);
+        setAnalysisPhase('error');
+      }
+      return;
+    }
+    advanceTask();
+  }
+
   const hasResponse = !!responses[task.id];
   // Sketch tasks are always advanceable (submitted state handled inside whiteboard)
   const canAdvance = task.type === 'sketch' ? true : hasResponse;
+  const isAnalysing = analysisPhase === 'analysing';
+
+  // Button label depends on analysis state
+  const nextLabel = isLast
+    ? (analysisPhase === 'done' || analysisPhase === 'error' ? 'Complete profile' : isAnalysableTask && task.dimension ? 'Analyse & complete' : 'Complete profile')
+    : (analysisPhase === 'done' || analysisPhase === 'error' ? 'Continue to next task' : isAnalysableTask && task.dimension ? 'Analyse response' : 'Next task');
 
   return (
     <div className={`mx-auto px-6 py-12 ${task.type === 'sketch' ? 'max-w-3xl' : 'max-w-2xl'}`}>
@@ -106,7 +158,7 @@ export function SignalTaskFlow() {
         </div>
       )}
 
-      <div className="mb-8">
+      <div className="mb-4">
         {task.type === 'ranking' && task.rankingItems && (
           <RankingTask items={task.rankingItems} onChange={(ids) => handleResponse(ids)} />
         )}
@@ -128,16 +180,27 @@ export function SignalTaskFlow() {
         )}
       </div>
 
-      <div className="flex items-center justify-between">
+      {/* AI signal analysis — shown for text tasks after submission */}
+      {isAnalysableTask && analysisPhase !== 'idle' && (
+        <div className="mb-8">
+          <SignalAnalysisCard
+            state={analysisPhase === 'analysing' ? 'analysing' : analysisPhase === 'error' ? 'error' : 'done'}
+            result={analysisResult}
+            error={analysisError}
+          />
+        </div>
+      )}
+
+      <div className={`flex items-center justify-between ${isAnalysableTask && analysisPhase === 'idle' ? 'mt-8' : ''}`}>
         <p className="text-xs text-gray-400">
-          Task {currentTask + 1} of {BLANK_SIGNAL_TASKS.length}
+          Task {currentTask + 1} of {tasks.length}
         </p>
         <button
           onClick={handleNext}
-          disabled={!canAdvance}
+          disabled={!canAdvance || isAnalysing}
           className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isLast ? 'Complete profile' : 'Next task'}
+          {nextLabel}
           <ChevronRight size={15} />
         </button>
       </div>
