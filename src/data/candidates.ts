@@ -1,0 +1,379 @@
+import type { Candidate, SignalProfile } from '../types';
+
+export const CANDIDATES: Candidate[] = [
+  {
+    id: 'c1',
+    firstName: 'Maya',
+    lastName: 'Chen',
+    headline: 'Service Design Lead',
+    roleFamily: 'service-design',
+    summary:
+      'I design services that connect messy organisational realities with clearer user experiences. I care about the space where system constraints and human needs collide, and I work best in ambiguous environments where I can create structure from uncertainty.',
+    yearsExperience: 8,
+    workStyleTags: ['systems thinking', 'facilitation', 'ambiguity-comfortable', 'collaborative', 'user-centred'],
+    signalProfileId: 'sp1',
+    avatarInitials: 'MC',
+  },
+  {
+    id: 'c2',
+    firstName: 'James',
+    lastName: 'Okafor',
+    headline: 'Senior Product Manager',
+    roleFamily: 'product',
+    summary:
+      'I build products at the intersection of commercial viability and user need. I gravitate towards discovery-heavy environments where the answer isn\'t obvious, and I tend to challenge assumptions before committing to solutions.',
+    yearsExperience: 6,
+    workStyleTags: ['data-informed', 'stakeholder-management', 'discovery-focused', 'commercial-awareness', 'cross-functional'],
+    signalProfileId: 'sp2',
+    avatarInitials: 'JO',
+  },
+  {
+    id: 'c3',
+    firstName: 'Priya',
+    lastName: 'Sharma',
+    headline: 'Operations Transformation Lead',
+    roleFamily: 'operations',
+    summary:
+      'I improve how organisations work — from process design to team capability. I bring a blend of analytical rigour and practical change management, and I\'m energised by the challenge of making things work better at scale.',
+    yearsExperience: 10,
+    workStyleTags: ['process-design', 'change-management', 'data-driven', 'pragmatic', 'coaching-mindset'],
+    signalProfileId: 'sp3',
+    avatarInitials: 'PS',
+  },
+];
+
+export const SIGNAL_PROFILES: SignalProfile[] = [
+  {
+    id: 'sp1',
+    candidateId: 'c1',
+    roleFamily: 'service-design',
+    completionDate: '2025-11-12',
+    overallSummary:
+      'Maya shows strong systems thinking and comfort with ambiguity. Her responses reveal a preference for alignment over speed, and a tendency to seek shared understanding before proposing solutions. She works best when given room to define the problem before solving it.',
+    strengthTags: ['systems thinking', 'facilitation', 'stakeholder-sensitivity', 'ambiguity-comfort', 'structured framing'],
+    tensionTags: ['pace tension under pressure', 'autonomy vs collaboration pull'],
+    tasks: [
+      {
+        id: 'sp1-t1',
+        type: 'ranking',
+        title: 'Navigating a team in crisis',
+        instructions:
+          'You have joined a team where delivery is slipping, stakeholders are frustrated, and the team lacks a shared view of priorities. Rank the following actions in the order you would take them first.',
+        responseFormat: 'ranked list',
+        rankingItems: [
+          { id: 'a', label: 'Map the current state and identify where blockers actually sit' },
+          { id: 'b', label: 'Facilitate a session to establish a shared view of priorities' },
+          { id: 'c', label: 'Meet with the stakeholders to reset expectations' },
+          { id: 'd', label: 'Identify quick wins to demonstrate progress' },
+          { id: 'e', label: 'Review existing documentation and prior work' },
+        ],
+        candidateResponse: ['b', 'a', 'c', 'e', 'd'],
+        dimension: 'collaboration-preference',
+        dimensionScore: 8,
+        extractedTags: ['alignment-first', 'shared-understanding', 'facilitation'],
+      },
+      {
+        id: 'sp1-t2',
+        type: 'tradeoff',
+        title: 'Your natural trade-off',
+        instructions: 'In this role, which trade-off feels most natural to you?',
+        responseFormat: 'selection + rationale',
+        tradeoffOptions: [
+          { id: 'a', label: 'Speed over polish', description: 'Move fast and iterate later' },
+          { id: 'b', label: 'Alignment over autonomy', description: 'Build shared buy-in before moving forward' },
+          { id: 'c', label: 'Exploration over standardisation', description: 'Prioritise discovery over process' },
+          { id: 'd', label: 'Depth over breadth', description: 'Go deep on fewer things' },
+        ],
+        candidateResponse: 'b',
+        dimension: 'collaboration-preference',
+        dimensionScore: 9,
+        extractedTags: ['alignment-preference', 'collaborative'],
+      },
+      {
+        id: 'sp1-t3',
+        type: 'scenario',
+        title: 'Stakeholder pressure without evidence',
+        instructions:
+          'A senior stakeholder wants a solution committed this week, but the evidence is weak and key users have not been consulted. What do you do?',
+        responseFormat: 'short written response',
+        candidateResponse:
+          "I'd ask for a brief window — even 2–3 days — to do the minimum necessary user contact before committing. I'd frame it as risk reduction, not delay. If that's genuinely not possible, I'd commit to a provisional direction with an explicit review point, and be transparent that we're making a bet rather than an informed decision. I wouldn't pretend we have more certainty than we do.",
+        dimension: 'stakeholder-sensitivity',
+        dimensionScore: 8,
+        extractedTags: ['risk-framing', 'honest communication', 'user-advocacy'],
+      },
+      {
+        id: 'sp1-t4',
+        type: 'critique',
+        title: 'What\'s wrong with this service brief',
+        instructions:
+          'Below is a weak service design brief. What stands out as the biggest issue and why?',
+        critiqueArtifact:
+          '"We need to redesign the onboarding experience. Users are dropping off. The project will take 8 weeks. We need wireframes and a user journey map. Deliverables due end of month."',
+        responseFormat: 'short text',
+        candidateResponse:
+          "The biggest issue is that the brief skips entirely over the question of why users are dropping off. It jumps straight to deliverables without any understanding phase. Eight weeks to deliver wireframes when the problem isn't diagnosed is just activity without direction. I'd want to start with: what do we actually know about where and why people are leaving, and do we have access to those users?",
+        dimension: 'structured-thinking',
+        dimensionScore: 9,
+        extractedTags: ['diagnosis-before-solution', 'questioning assumptions'],
+      },
+      {
+        id: 'sp1-t5',
+        type: 'sketch',
+        title: 'Sketch a triage process',
+        instructions:
+          'Sketch how you would structure a rough process for triaging incoming work across a team.',
+        responseFormat: 'sketch canvas',
+        candidateResponse: 'sketch-submitted',
+        dimension: 'execution-bias',
+        dimensionScore: 6,
+        extractedTags: ['process-thinking', 'team-structure'],
+      },
+    ],
+    evidenceSnippets: [
+      {
+        id: 'es1-1',
+        taskId: 'sp1-t3',
+        dimension: 'stakeholder-sensitivity',
+        quote: "I'd frame it as risk reduction, not delay.",
+        context: 'Response to stakeholder pressure scenario',
+      },
+      {
+        id: 'es1-2',
+        taskId: 'sp1-t4',
+        dimension: 'structured-thinking',
+        quote: "The biggest issue is that the brief skips entirely over the question of why users are dropping off.",
+        context: 'Critique task — service brief analysis',
+      },
+      {
+        id: 'es1-3',
+        taskId: 'sp1-t2',
+        dimension: 'collaboration-preference',
+        quote: 'Alignment over autonomy — build shared buy-in before moving forward',
+        context: 'Trade-off preference with rationale',
+      },
+    ],
+  },
+  {
+    id: 'sp2',
+    candidateId: 'c2',
+    roleFamily: 'product',
+    completionDate: '2025-11-18',
+    overallSummary:
+      'James brings a discovery-led, hypothesis-driven approach to product work. He shows high commercial awareness and strong stakeholder management instincts. His responses suggest he operates best with moderate autonomy and clear outcome targets, though he can adapt to ambiguity when framed around learning.',
+    strengthTags: ['hypothesis-thinking', 'commercial-awareness', 'stakeholder-management', 'discovery-focus', 'outcome-orientation'],
+    tensionTags: ['speed vs rigour tension', 'needs clear outcome framing to thrive'],
+    tasks: [
+      {
+        id: 'sp2-t1',
+        type: 'ranking',
+        title: 'Navigating a team in crisis',
+        instructions:
+          'You have joined a team where delivery is slipping, stakeholders are frustrated, and the team lacks a shared view of priorities. Rank the following actions in the order you would take them first.',
+        responseFormat: 'ranked list',
+        rankingItems: [
+          { id: 'a', label: 'Map the current state and identify where blockers actually sit' },
+          { id: 'b', label: 'Facilitate a session to establish a shared view of priorities' },
+          { id: 'c', label: 'Meet with the stakeholders to reset expectations' },
+          { id: 'd', label: 'Identify quick wins to demonstrate progress' },
+          { id: 'e', label: 'Review existing documentation and prior work' },
+        ],
+        candidateResponse: ['a', 'c', 'b', 'd', 'e'],
+        dimension: 'execution-bias',
+        dimensionScore: 7,
+        extractedTags: ['diagnostic-first', 'stakeholder-awareness'],
+      },
+      {
+        id: 'sp2-t2',
+        type: 'tradeoff',
+        title: 'Your natural trade-off',
+        instructions: 'In this role, which trade-off feels most natural to you?',
+        responseFormat: 'selection + rationale',
+        tradeoffOptions: [
+          { id: 'a', label: 'Speed over polish', description: 'Move fast and iterate later' },
+          { id: 'b', label: 'Alignment over autonomy', description: 'Build shared buy-in before moving forward' },
+          { id: 'c', label: 'Exploration over standardisation', description: 'Prioritise discovery over process' },
+          { id: 'd', label: 'Depth over breadth', description: 'Go deep on fewer things' },
+        ],
+        candidateResponse: 'c',
+        dimension: 'ambiguity-comfort',
+        dimensionScore: 8,
+        extractedTags: ['exploration-preference', 'discovery-orientation'],
+      },
+      {
+        id: 'sp2-t3',
+        type: 'scenario',
+        title: 'Stakeholder pressure without evidence',
+        instructions:
+          'A senior stakeholder wants a solution committed this week, but the evidence is weak and key users have not been consulted. What do you do?',
+        responseFormat: 'short written response',
+        candidateResponse:
+          "I'd push back directly but constructively. I'd ask what decision we're actually trying to make and whether committing to a solution this week changes the outcome or just the appearance of progress. If there's genuine urgency, I'd propose running two days of rapid user contact — even five calls — to de-risk the biggest assumptions. If the stakeholder still wants to proceed, I'd make sure we document what we're betting on and why.",
+        dimension: 'stakeholder-sensitivity',
+        dimensionScore: 7,
+        extractedTags: ['direct-communication', 'rapid-validation', 'assumption-tracking'],
+      },
+      {
+        id: 'sp2-t4',
+        type: 'critique',
+        title: 'What\'s wrong with this product brief',
+        instructions:
+          'Below is a weak product brief. What stands out as the biggest issue and why?',
+        critiqueArtifact:
+          '"Build a dashboard that shows all user activity. It needs to be shipped by Q2. The design team will create mockups. Success will be measured by usage."',
+        responseFormat: 'short text',
+        candidateResponse:
+          "The problem is that 'all user activity' and 'measured by usage' are placeholders, not decisions. We don't know what problem the dashboard is solving or for whom. Usage as a metric will just measure whether people open it, not whether it's useful. I'd want to understand: which user, with what job to be done, and what specific insight or action does this dashboard enable? Without that, you're building something and hoping.",
+        dimension: 'structured-thinking',
+        dimensionScore: 9,
+        extractedTags: ['problem-framing', 'outcome-focus', 'questioning-assumptions'],
+      },
+      {
+        id: 'sp2-t5',
+        type: 'sketch',
+        title: 'Sketch a triage process',
+        instructions:
+          'Sketch how you would structure a rough process for triaging incoming work across a team.',
+        responseFormat: 'sketch canvas',
+        candidateResponse: 'sketch-submitted',
+        dimension: 'execution-bias',
+        dimensionScore: 7,
+        extractedTags: ['prioritisation-thinking', 'systems-orientation'],
+      },
+    ],
+    evidenceSnippets: [
+      {
+        id: 'es2-1',
+        taskId: 'sp2-t3',
+        dimension: 'stakeholder-sensitivity',
+        quote: "I'd ask what decision we're actually trying to make and whether committing to a solution this week changes the outcome or just the appearance of progress.",
+        context: 'Response to stakeholder pressure scenario',
+      },
+      {
+        id: 'es2-2',
+        taskId: 'sp2-t4',
+        dimension: 'structured-thinking',
+        quote: "We don't know what problem the dashboard is solving or for whom.",
+        context: 'Critique task — product brief analysis',
+      },
+      {
+        id: 'es2-3',
+        taskId: 'sp2-t2',
+        dimension: 'ambiguity-comfort',
+        quote: 'Exploration over standardisation — prioritise discovery over process',
+        context: 'Trade-off preference selection',
+      },
+    ],
+  },
+  {
+    id: 'sp3',
+    candidateId: 'c3',
+    roleFamily: 'operations',
+    completionDate: '2025-11-20',
+    overallSummary:
+      'Priya demonstrates a strong execution orientation combined with structured change management thinking. She shows high tolerance for complexity and favours building shared frameworks before scaling. Her responses reveal pragmatism and a coaching mindset — she tends to look for capability gaps as much as process gaps.',
+    strengthTags: ['execution-orientation', 'change-management', 'structured-thinking', 'coaching-mindset', 'systems-design'],
+    tensionTags: ['can over-engineer solutions in early-stage environments', 'needs credible leadership sponsorship to operate effectively'],
+    tasks: [
+      {
+        id: 'sp3-t1',
+        type: 'ranking',
+        title: 'Navigating a team in crisis',
+        instructions:
+          'You have joined a team where delivery is slipping, stakeholders are frustrated, and the team lacks a shared view of priorities. Rank the following actions in the order you would take them first.',
+        responseFormat: 'ranked list',
+        rankingItems: [
+          { id: 'a', label: 'Map the current state and identify where blockers actually sit' },
+          { id: 'b', label: 'Facilitate a session to establish a shared view of priorities' },
+          { id: 'c', label: 'Meet with the stakeholders to reset expectations' },
+          { id: 'd', label: 'Identify quick wins to demonstrate progress' },
+          { id: 'e', label: 'Review existing documentation and prior work' },
+        ],
+        candidateResponse: ['e', 'a', 'b', 'c', 'd'],
+        dimension: 'structured-thinking',
+        dimensionScore: 8,
+        extractedTags: ['diagnosis-first', 'evidence-gathering', 'structured-approach'],
+      },
+      {
+        id: 'sp3-t2',
+        type: 'tradeoff',
+        title: 'Your natural trade-off',
+        instructions: 'In this role, which trade-off feels most natural to you?',
+        responseFormat: 'selection + rationale',
+        tradeoffOptions: [
+          { id: 'a', label: 'Speed over polish', description: 'Move fast and iterate later' },
+          { id: 'b', label: 'Alignment over autonomy', description: 'Build shared buy-in before moving forward' },
+          { id: 'c', label: 'Exploration over standardisation', description: 'Prioritise discovery over process' },
+          { id: 'd', label: 'Depth over breadth', description: 'Go deep on fewer things' },
+        ],
+        candidateResponse: 'a',
+        dimension: 'execution-bias',
+        dimensionScore: 8,
+        extractedTags: ['speed-orientation', 'pragmatic-delivery'],
+      },
+      {
+        id: 'sp3-t3',
+        type: 'scenario',
+        title: 'Stakeholder pressure without evidence',
+        instructions:
+          'A senior stakeholder wants a solution committed this week, but the evidence is weak and key users have not been consulted. What do you do?',
+        responseFormat: 'short written response',
+        candidateResponse:
+          "I'd first try to understand what's actually driving the urgency — is this a real constraint or a habit of premature closure? Then I'd propose a structured lightweight sprint: three days of targeted evidence-gathering with a defined scope. I'd present it as faster in the long run. If they still want to proceed without it, I'd document the known gaps and build in an early retrospective so we can course-correct. I wouldn't silently comply.",
+        dimension: 'stakeholder-sensitivity',
+        dimensionScore: 7,
+        extractedTags: ['structured-approach', 'risk-documentation', 'pragmatic'],
+      },
+      {
+        id: 'sp3-t4',
+        type: 'critique',
+        title: 'What\'s wrong with this operations process',
+        instructions:
+          'Below is a description of a weak operations process. What stands out as the biggest issue and why?',
+        critiqueArtifact:
+          '"Requests come into the team via email and Slack. The team lead decides who does what each Monday. Progress is tracked in a shared spreadsheet. Issues are raised in the weekly team meeting."',
+        responseFormat: 'short text',
+        candidateResponse:
+          "The core problem is that everything depends on the team lead as a human routing layer — which is a single point of failure and a bottleneck to throughput. The process also has no visibility between decisions: things happen in the invisible space between Monday and the weekly meeting. I'd look at how to create lightweight shared visibility in real time — a simple kanban, not more meetings — and then think about how to distribute routing decisions so the team lead is an exception-handler, not a queue manager.",
+        dimension: 'execution-bias',
+        dimensionScore: 9,
+        extractedTags: ['bottleneck-identification', 'systems-design', 'delegation-thinking'],
+      },
+      {
+        id: 'sp3-t5',
+        type: 'sketch',
+        title: 'Sketch a triage process',
+        instructions:
+          'Sketch how you would structure a rough process for triaging incoming work across a team.',
+        responseFormat: 'sketch canvas',
+        candidateResponse: 'sketch-submitted',
+        dimension: 'structured-thinking',
+        dimensionScore: 8,
+        extractedTags: ['process-design', 'team-operations'],
+      },
+    ],
+    evidenceSnippets: [
+      {
+        id: 'es3-1',
+        taskId: 'sp3-t4',
+        dimension: 'execution-bias',
+        quote: "Everything depends on the team lead as a human routing layer — which is a single point of failure and a bottleneck to throughput.",
+        context: 'Critique task — operations process analysis',
+      },
+      {
+        id: 'es3-2',
+        taskId: 'sp3-t3',
+        dimension: 'stakeholder-sensitivity',
+        quote: "I'd first try to understand what's actually driving the urgency — is this a real constraint or a habit of premature closure?",
+        context: 'Response to stakeholder pressure scenario',
+      },
+      {
+        id: 'es3-3',
+        taskId: 'sp3-t2',
+        dimension: 'execution-bias',
+        quote: 'Speed over polish — move fast and iterate later',
+        context: 'Trade-off preference selection',
+      },
+    ],
+  },
+];
