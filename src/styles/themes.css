@@ -10,6 +10,7 @@
 
 [data-theme="bumble"] {
   font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
 }
 
 /* Page background */
@@ -128,6 +129,7 @@
 
 [data-theme="hinge"] {
   font-family: 'DM Sans', sans-serif;
+  background-color: #faf7f2;
 }
 
 /* Page and section backgrounds — warm cream */
@@ -252,6 +254,7 @@
 
 [data-theme="volt"] {
   font-family: 'Space Grotesk', sans-serif;
+  background-color: #0a0a0a;
 }
 
 /* ── Backgrounds — three-level hierarchy ── */
