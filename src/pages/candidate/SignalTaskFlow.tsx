@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock, ChevronRight, Pencil, Sparkles } from 'lucide-react';
 import { BLANK_SIGNAL_TASKS, SKETCH_TASKS } from '../../data/tasks';
@@ -44,6 +44,10 @@ export function SignalTaskFlow() {
     return BLANK_SIGNAL_TASKS;
   }, [recommendedTaskIds]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentTask]);
+
   const isRecommended = recommendedTaskIds.length > 0;
   const task = tasks[currentTask];
   const isLast = currentTask === tasks.length - 1;
@@ -75,7 +79,6 @@ export function SignalTaskFlow() {
       navigate('/candidate/profile-complete');
     } else {
       setCurrentTask((prev) => prev + 1);
-      window.scrollTo(0, 0);
     }
   }
 
