@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from './components/layout/Navbar';
 import { CandidateSessionProvider } from './context/CandidateSessionContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
+import './styles/themes.css';
 
 // Landing
 import { HomePage } from './pages/landing/HomePage';
@@ -30,13 +32,12 @@ import { CandidateComparison } from './pages/employer/CandidateComparison';
 // Analysis
 import { FitAnalysisPage } from './pages/analysis/FitAnalysisPage';
 
-export default function App() {
+function AppShell() {
+  const { themeId } = useTheme();
   return (
-    <BrowserRouter>
-      <CandidateSessionProvider>
-        <div className="min-h-screen bg-gray-50">
-          <Navbar />
-          <Routes>
+    <div className="min-h-screen bg-gray-50" data-theme={themeId}>
+      <Navbar />
+      <Routes>
             {/* Public */}
             <Route path="/" element={<HomePage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
@@ -71,8 +72,18 @@ export default function App() {
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </div>
-      </CandidateSessionProvider>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ThemeProvider>
+        <CandidateSessionProvider>
+          <AppShell />
+        </CandidateSessionProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

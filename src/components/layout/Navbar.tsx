@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Zap } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 
 const TAGLINES = [
   'Less CV. More you.',
@@ -58,6 +59,7 @@ export function Navbar() {
           >
             Employer
           </Link>
+          <ThemeToggle />
         </div>
       </div>
     </nav>

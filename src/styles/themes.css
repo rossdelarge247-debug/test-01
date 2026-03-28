@@ -1,0 +1,246 @@
+/* ─────────────────────────────────────────────────────────────
+   Signal>Noise — Visual Theme Overrides
+   Specificity: [data-theme] + class = (0,2,0) beats Tailwind's (0,1,0)
+   No !important needed for colour/radius overrides.
+   Font and body-level overrides use element selectors.
+───────────────────────────────────────────────────────────── */
+
+/* ── BUMBLE ──────────────────────────────────────────────── */
+/* Bold, warm, playful. Yellow + black. Poppins. Very round.  */
+
+[data-theme="bumble"] {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Page background */
+[data-theme="bumble"] .min-h-screen,
+[data-theme="bumble"] .bg-gray-50 {
+  background-color: #ffffff;
+}
+
+/* Navbar */
+[data-theme="bumble"] nav {
+  border-bottom-color: #f5e8a0;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Primary yellow — buttons, icon bg, active states */
+[data-theme="bumble"] .bg-indigo-600 {
+  background-color: #FBCE3B;
+  color: #1a1a1a;
+}
+[data-theme="bumble"] .hover\:bg-indigo-700:hover {
+  background-color: #e6b800;
+  color: #1a1a1a;
+}
+[data-theme="bumble"] .bg-indigo-700 {
+  background-color: #e6b800;
+}
+
+/* Override text-white inside primary yellow elements */
+[data-theme="bumble"] .bg-indigo-600 .text-white,
+[data-theme="bumble"] .bg-indigo-600.text-white,
+[data-theme="bumble"] a.bg-indigo-600,
+[data-theme="bumble"] button.bg-indigo-600 {
+  color: #1a1a1a;
+}
+
+/* Light primary tints */
+[data-theme="bumble"] .bg-indigo-50 {
+  background-color: #fffef0;
+}
+[data-theme="bumble"] .bg-indigo-100 {
+  background-color: #fff8c5;
+}
+
+/* Primary text */
+[data-theme="bumble"] .text-indigo-600 {
+  color: #1a1a1a;
+}
+[data-theme="bumble"] .text-indigo-700 {
+  color: #111111;
+}
+[data-theme="bumble"] .text-indigo-400,
+[data-theme="bumble"] .text-indigo-500 {
+  color: #6b6b6b;
+}
+[data-theme="bumble"] .text-indigo-900 {
+  color: #000000;
+}
+
+/* Primary borders */
+[data-theme="bumble"] .border-indigo-100 {
+  border-color: #fde68a;
+}
+[data-theme="bumble"] .border-indigo-200 {
+  border-color: #fcd34d;
+}
+
+/* Active nav links */
+[data-theme="bumble"] .bg-indigo-50.text-indigo-700 {
+  background-color: #fff8c5;
+  color: #1a1a1a;
+}
+
+/* Dark section (CTA) — stays black for Bumble */
+[data-theme="bumble"] .bg-gray-900 {
+  background-color: #111111;
+}
+
+/* Cards — very round, stronger shadow */
+[data-theme="bumble"] .rounded-lg {
+  border-radius: 1.25rem;
+}
+[data-theme="bumble"] .rounded-xl {
+  border-radius: 1.75rem;
+}
+[data-theme="bumble"] .rounded-2xl {
+  border-radius: 2.25rem;
+}
+
+/* Pill / badge radius stays full */
+[data-theme="bumble"] .rounded-full {
+  border-radius: 9999px;
+}
+
+/* Card shadows — more pronounced */
+[data-theme="bumble"] .shadow-sm {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+}
+
+/* Typography — bolder headings */
+[data-theme="bumble"] h1,
+[data-theme="bumble"] h2,
+[data-theme="bumble"] h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Zap icon bg in navbar */
+[data-theme="bumble"] .bg-indigo-600 svg {
+  color: #1a1a1a;
+}
+
+
+/* ── HINGE ───────────────────────────────────────────────── */
+/* Warm, editorial, intimate. Deep green + cream. Serif heads. */
+
+[data-theme="hinge"] {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Page and section backgrounds — warm cream */
+[data-theme="hinge"] .min-h-screen,
+[data-theme="hinge"] .bg-gray-50 {
+  background-color: #faf7f2;
+}
+[data-theme="hinge"] .bg-white {
+  background-color: #fdf9f4;
+}
+
+/* Navbar — warm tinted */
+[data-theme="hinge"] nav {
+  background-color: rgba(250, 247, 242, 0.85);
+  border-bottom-color: #e8e0d5;
+}
+
+/* Primary deep green */
+[data-theme="hinge"] .bg-indigo-600 {
+  background-color: #1a4731;
+}
+[data-theme="hinge"] .hover\:bg-indigo-700:hover {
+  background-color: #133523;
+}
+[data-theme="hinge"] .bg-indigo-700 {
+  background-color: #133523;
+}
+
+/* Light primary tints */
+[data-theme="hinge"] .bg-indigo-50 {
+  background-color: #eef5f1;
+}
+[data-theme="hinge"] .bg-indigo-100 {
+  background-color: #d8ebe2;
+}
+
+/* Primary text */
+[data-theme="hinge"] .text-indigo-600 {
+  color: #1a4731;
+}
+[data-theme="hinge"] .text-indigo-700 {
+  color: #133523;
+}
+[data-theme="hinge"] .text-indigo-400,
+[data-theme="hinge"] .text-indigo-500 {
+  color: #6b9e82;
+}
+[data-theme="hinge"] .text-indigo-900 {
+  color: #0d2318;
+}
+
+/* Primary borders */
+[data-theme="hinge"] .border-indigo-100 {
+  border-color: #c8ddd3;
+}
+[data-theme="hinge"] .border-indigo-200 {
+  border-color: #a8c8b8;
+}
+
+/* General borders — warmer */
+[data-theme="hinge"] .border-gray-100 {
+  border-color: #ede8e1;
+}
+[data-theme="hinge"] .border-gray-200 {
+  border-color: #ddd7ce;
+}
+
+/* Dark CTA section — deep forest green */
+[data-theme="hinge"] .bg-gray-900 {
+  background-color: #0d2318;
+}
+
+/* Cards — warm and tastefully round */
+[data-theme="hinge"] .rounded-lg {
+  border-radius: 1rem;
+}
+[data-theme="hinge"] .rounded-xl {
+  border-radius: 1.25rem;
+}
+[data-theme="hinge"] .rounded-2xl {
+  border-radius: 1.75rem;
+}
+[data-theme="hinge"] .rounded-full {
+  border-radius: 9999px;
+}
+
+/* Card shadow — soft and warm */
+[data-theme="hinge"] .shadow-sm {
+  box-shadow: 0 2px 16px rgba(26, 71, 49, 0.08);
+}
+
+/* Typography — serif headings */
+[data-theme="hinge"] h1,
+[data-theme="hinge"] h2,
+[data-theme="hinge"] h3,
+[data-theme="hinge"] h4 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: -0.01em;
+}
+
+/* Page-level heading sizes — more generous */
+[data-theme="hinge"] h1 {
+  font-size: 3.5rem;
+  line-height: 1.15;
+}
+
+/* Active nav link */
+[data-theme="hinge"] .bg-indigo-50.text-indigo-700 {
+  background-color: #eef5f1;
+  color: #1a4731;
+}
+
+/* Warm background for "how it works" stripe */
+[data-theme="hinge"] .bg-gray-50.border-y {
+  background-color: #f4efe8;
+}
