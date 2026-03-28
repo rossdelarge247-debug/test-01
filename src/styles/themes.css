@@ -254,16 +254,32 @@
   font-family: 'Space Grotesk', sans-serif;
 }
 
-/* ── Backgrounds ── */
+/* ── Backgrounds — three-level hierarchy ── */
+/* Page: #0a0a0a → Cards: #161616 → Inset elements: #222222 */
 [data-theme="volt"] .min-h-screen,
 [data-theme="volt"] .bg-gray-50 {
   background-color: #0a0a0a;
 }
+/* Cards and large surfaces */
 [data-theme="volt"] .bg-white {
   background-color: #161616;
 }
+/* Elements inside cards (inputs, inset panels, inactive buttons) */
 [data-theme="volt"] .bg-gray-100 {
-  background-color: #1e1e1e;
+  background-color: #222222;
+}
+/* Buttons and interactive elements sitting on cards need to be
+   lighter than the card surface (#161616) to be visible */
+[data-theme="volt"] button.bg-white,
+[data-theme="volt"] a.bg-white {
+  background-color: #252525;
+}
+/* Restore a subtle border on interactive elements only */
+[data-theme="volt"] button.border {
+  border-color: #333333;
+}
+[data-theme="volt"] a.border {
+  border-color: #333333;
 }
 
 /* "How it works" stripe */
