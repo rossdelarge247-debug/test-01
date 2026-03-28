@@ -13,7 +13,11 @@ export function Navbar() {
           <div className="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center">
             <Zap size={15} className="text-white" />
           </div>
-          <span className="font-semibold text-gray-900 text-lg tracking-tight">Signal</span>
+          <span className="font-semibold text-lg tracking-tight">
+            <span className="text-gray-900">Signal</span>
+            <span className="text-gray-300 font-light mx-0.5">&gt;</span>
+            <span className="text-indigo-600">Noise</span>
+          </span>
         </Link>
 
         <div className="flex items-center gap-1">
