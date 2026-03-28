@@ -1,6 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Zap } from 'lucide-react';
 
+const TAGLINES = [
+  'Less CV. More you.',
+  'Skip the CV foreplay.',
+  'Chemistry, not keywords.',
+];
+
+const tagline = TAGLINES[Math.floor(Math.random() * TAGLINES.length)];
+
 export function Navbar() {
   const location = useLocation();
   const isCandidatePath = location.pathname.startsWith('/candidate');
@@ -13,11 +21,14 @@ export function Navbar() {
           <div className="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center">
             <Zap size={15} className="text-white" />
           </div>
-          <span className="font-semibold text-lg tracking-tight">
-            <span className="text-gray-900">Signal</span>
-            <span className="text-gray-300 font-light mx-0.5">&gt;</span>
-            <span className="text-indigo-600">Noise</span>
-          </span>
+          <div className="flex flex-col leading-none">
+            <span className="font-semibold text-lg tracking-tight">
+              <span className="text-gray-900">Signal</span>
+              <span className="text-gray-300 font-light mx-0.5">&gt;</span>
+              <span className="text-indigo-600">Noise</span>
+            </span>
+            <span className="text-[10px] text-gray-400 tracking-wide mt-0.5">{tagline}</span>
+          </div>
         </Link>
 
         <div className="flex items-center gap-1">
