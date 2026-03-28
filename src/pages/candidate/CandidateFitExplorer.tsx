@@ -45,7 +45,22 @@ export function CandidateFitExplorer() {
 
       {analyses.length === 0 ? (
         <Card padding="md">
-          <p className="text-gray-500 text-sm">No fit analyses available for this profile.</p>
+          <div className="text-center py-8 px-4">
+            <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <ArrowRight size={20} className="text-indigo-300" />
+            </div>
+            <p className="text-sm font-semibold text-gray-800 mb-1">No role matches yet</p>
+            <p className="text-sm text-gray-400 leading-relaxed mb-5 max-w-xs mx-auto">
+              Complete your signal tasks and employers will be able to run a fit analysis against their open roles.
+            </p>
+            <Link
+              to="/candidate/signal-tasks"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
+            >
+              Complete signal tasks
+              <ArrowRight size={14} />
+            </Link>
+          </div>
         </Card>
       ) : (
         <div className="space-y-4">
@@ -123,12 +138,12 @@ export function CandidateFitExplorer() {
                 {existing ? (
                   <Link
                     to={`/analysis/${candidateId}/${role.id}`}
-                    className="text-xs font-medium text-indigo-600 hover:underline"
+                    className="inline-flex items-center gap-1 text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
                   >
-                    View fit analysis →
+                    View fit analysis <ArrowRight size={11} />
                   </Link>
                 ) : (
-                  <span className="text-xs text-gray-400">No analysis yet</span>
+                  <span className="text-xs text-gray-400 italic">Analysis not yet run</span>
                 )}
               </Card>
             );

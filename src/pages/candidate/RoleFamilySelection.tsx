@@ -50,12 +50,15 @@ export function RoleFamilySelection() {
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-16">
-      <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wider mb-3">Step 1 of 2</p>
+      <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wider mb-3">Step 1 of 2 — Focus area</p>
       <h1 className="text-3xl font-semibold text-gray-900 tracking-tight mb-2">
-        Choose a role family
+        What kind of work do you do?
       </h1>
-      <p className="text-gray-500 mb-10 leading-relaxed">
-        The tasks in your signal pack are tailored to the kind of work you do. Select the role family that best describes your area.
+      <p className="text-gray-500 mb-3 leading-relaxed">
+        Your tasks will be tailored to this area — the scenarios, trade-offs, and priorities that are most relevant to how you actually work.
+      </p>
+      <p className="text-xs text-gray-400 mb-10">
+        Pick the closest match. You can always complete tasks from other areas later.
       </p>
 
       <div className="space-y-3 mb-10">

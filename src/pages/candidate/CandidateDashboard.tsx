@@ -35,7 +35,7 @@ export function CandidateDashboard() {
       <PageHeader
         eyebrow="Candidate"
         title={`Welcome back, ${me.firstName}`}
-        subtitle="Your signal profile and how you compare to the field."
+        subtitle="Your signal profile and how you rank against other assessed candidates."
         actions={
           <Link
             to="/candidate/discover-tasks"
@@ -240,7 +240,7 @@ export function CandidateDashboard() {
                   <div className="mt-4 pt-4 border-t border-gray-100 flex items-start gap-2">
                     <TrendingUp size={12} className="text-gray-300 flex-shrink-0 mt-0.5" />
                     <p className="text-xs text-gray-400">
-                      Names and identifying details are anonymised. Role families and top strengths are visible to provide context.
+                      Other candidates are shown anonymously — only role area and top strengths are visible, not names or identifying details.
                     </p>
                   </div>
                 </Card>

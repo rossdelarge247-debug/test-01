@@ -71,7 +71,7 @@ export function CandidateOnboarding() {
 
       <div className="bg-gray-50 border border-gray-100 rounded-xl p-5 mb-10">
         <p className="text-sm text-gray-600 leading-relaxed">
-          <strong className="text-gray-800">About the pack:</strong> You'll complete 5 short tasks. The whole thing should take under 25 minutes. You can pause and return — responses are saved as you go.
+          <strong className="text-gray-800">What to expect:</strong> You'll complete 5 short tasks — the whole thing takes under 25 minutes. You can pause and return at any point.
         </p>
       </div>
 

@@ -229,9 +229,20 @@ export function TaskDiscovery() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-16 text-gray-400">
-          <p className="text-sm">No tasks match the selected roles yet.</p>
-          <p className="text-xs mt-1">Try selecting a different combination.</p>
+        <div className="text-center py-16 px-6 bg-gray-50 border border-gray-100 rounded-2xl">
+          <div className="w-12 h-12 bg-white border border-gray-200 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <TrendingUp size={20} className="text-gray-300" />
+          </div>
+          <p className="text-sm font-semibold text-gray-700 mb-1">No tasks for this combination yet</p>
+          <p className="text-sm text-gray-400 mb-5 max-w-xs mx-auto">
+            Tasks are added regularly as employers request new signals. Try a different role mix, or browse everything.
+          </p>
+          <button
+            onClick={() => setSelectedRoles(new Set())}
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-colors"
+          >
+            Clear filters — show all tasks
+          </button>
         </div>
       )}
     </div>
