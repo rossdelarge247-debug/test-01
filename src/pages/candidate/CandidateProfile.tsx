@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Quote, ArrowRight, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowLeft, Quote, ArrowRight, CheckCircle2, ChevronDown, ChevronUp, MessageSquarePlus } from 'lucide-react';
 import { CANDIDATES, SIGNAL_PROFILES } from '../../data/candidates';
 import { ROLE_FIT_PACKS } from '../../data/roles';
 import { FIT_ANALYSES } from '../../data/fitAnalysis';
@@ -9,7 +9,7 @@ import { Card } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
 import { Avatar } from '../../components/ui/Avatar';
 import { PageLayout } from '../../components/layout/PageLayout';
-import type { RankingItem } from '../../types';
+import type { RankingItem, SignalTask } from '../../types';
 
 const AVATAR_COLORS = { c1: 'indigo', c2: 'violet', c3: 'emerald' } as const;
 const TASK_TYPE_LABELS: Record<string, string> = {
@@ -32,6 +32,15 @@ function formatDate(d: string | null) {
   return `${new Date(Number(year), Number(month) - 1).toLocaleString('default', { month: 'short' })} ${year}`;
 }
 
+function reflectionPrompt(type: SignalTask['type']): string {
+  if (type === 'ranking') return "What made this your top priority? Was anything a close second?";
+  if (type === 'tradeoff') return "What tipped your decision? Are there conditions where you'd have chosen differently?";
+  if (type === 'scenario') return "Looking back, is there anything you'd add or approach differently?";
+  if (type === 'critique') return "What was the hardest part of this critique to get right?";
+  if (type === 'sketch') return "What were the key decisions you made in your process sketch?";
+  return "What was going through your mind when you answered this?";
+}
+
 // ── Collapsible section ───────────────────────────────────────────────────────
 
 function CollapsibleSection({
@@ -39,11 +48,13 @@ function CollapsibleSection({
   summary,
   children,
   defaultOpen = false,
+  badge,
 }: {
   label: string;
   summary: React.ReactNode;
   children: React.ReactNode;
   defaultOpen?: boolean;
+  badge?: React.ReactNode;
 }) {
   const [open, setOpen] = useState(defaultOpen);
 
@@ -54,8 +65,11 @@ function CollapsibleSection({
         className="w-full flex items-start justify-between gap-4 p-5 text-left group"
       >
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">{label}</p>
-          {!open && <div className="truncate">{summary}</div>}
+          <div className="flex items-center gap-2 mb-1.5">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{label}</p>
+            {badge}
+          </div>
+          {!open && <div className="min-w-0">{summary}</div>}
         </div>
         <span className="flex-shrink-0 mt-0.5 text-gray-300 group-hover:text-gray-500 transition-colors">
           {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -66,7 +80,7 @@ function CollapsibleSection({
   );
 }
 
-// ── Inline tag list with overflow ─────────────────────────────────────────────
+// ── Tag summary ───────────────────────────────────────────────────────────────
 
 function TagSummary({ tags, variant = 'neutral', limit = 4 }: {
   tags: string[];
@@ -83,11 +97,139 @@ function TagSummary({ tags, variant = 'neutral', limit = 4 }: {
   );
 }
 
+// ── Completion progress bar ───────────────────────────────────────────────────
+
+function CompletenessBar({
+  roleCount,
+  taskCount,
+  roleAnswers,
+  taskReflections,
+  roleIds,
+  taskIds,
+}: {
+  roleCount: number;
+  taskCount: number;
+  roleAnswers: Record<string, string>;
+  taskReflections: Record<string, string>;
+  roleIds: string[];
+  taskIds: string[];
+}) {
+  const total = roleCount + taskCount;
+  if (total === 0) return null;
+
+  const answeredRoles = roleIds.filter((id) => roleAnswers[id]?.trim().length > 0).length;
+  const answeredTasks = taskIds.filter((id) => taskReflections[id]?.trim().length > 0).length;
+  const completed = answeredRoles + answeredTasks;
+  const pct = Math.round((completed / total) * 100);
+
+  const label =
+    completed === 0
+      ? `${total} context questions to answer`
+      : completed === total
+      ? 'Profile fully filled in'
+      : `${completed} of ${total} extra context items added`;
+
+  const barColor =
+    pct === 100 ? 'bg-green-500' : pct >= 50 ? 'bg-indigo-500' : 'bg-amber-400';
+
+  return (
+    <Card padding="md" className="mb-4">
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-xs font-semibold text-gray-500">Profile completeness</p>
+        <p className="text-xs font-semibold text-gray-900">{pct}%</p>
+      </div>
+      <div className="w-full bg-gray-100 rounded-full h-2 mb-2">
+        <div
+          className={`${barColor} h-2 rounded-full transition-all duration-500`}
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+      <p className="text-xs text-gray-400">{label}</p>
+    </Card>
+  );
+}
+
+// ── Inline reflection prompt ──────────────────────────────────────────────────
+
+function TaskReflection({
+  type,
+  reflection,
+  onChange,
+}: {
+  taskId?: string;
+  type: SignalTask['type'];
+  reflection: string;
+  onChange: (v: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  if (reflection) {
+    return (
+      <div className="mt-3 pt-3 border-t border-gray-100">
+        <div className="flex items-start gap-2">
+          <CheckCircle2 size={13} className="text-green-500 flex-shrink-0 mt-0.5" />
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-medium text-gray-400 mb-1">Your reflection</p>
+            <p className="text-sm text-gray-700 leading-relaxed">{reflection}</p>
+            <button
+              onClick={() => { onChange(''); setOpen(true); }}
+              className="text-xs text-gray-400 hover:text-gray-600 mt-1 underline"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!open) {
+    return (
+      <div className="mt-3 pt-3 border-t border-gray-100">
+        <button
+          onClick={() => setOpen(true)}
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-indigo-500 hover:text-indigo-700 transition-colors"
+        >
+          <MessageSquarePlus size={12} />
+          Reflect on this answer
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-3 pt-3 border-t border-gray-100 space-y-2">
+      <p className="text-xs font-medium text-indigo-700 bg-indigo-50 border border-indigo-100 rounded-lg px-3 py-2 leading-relaxed">
+        {reflectionPrompt(type)}
+      </p>
+      <textarea
+        autoFocus
+        value={reflection}
+        onChange={(e) => onChange(e.target.value)}
+        rows={3}
+        placeholder="2–3 sentences is enough. This adds nuance that your answer alone can't show."
+        className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-200 resize-none text-gray-700 leading-relaxed placeholder:text-gray-400"
+      />
+      <div className="flex items-center gap-2">
+        {reflection.trim() && (
+          <span className="text-xs text-gray-400">{reflection.split(/\s+/).filter(Boolean).length} words</span>
+        )}
+        <button
+          onClick={() => setOpen(false)}
+          className="text-xs text-gray-400 hover:text-gray-600 ml-auto"
+        >
+          Collapse
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export function CandidateProfile() {
   const { id } = useParams<{ id: string }>();
-  const { roleAnswers } = useCandidateSession();
+  const { roleAnswers, taskReflections, setTaskReflection } = useCandidateSession();
 
   const candidateId = id || 'c1';
   const ownProfile = !id;
@@ -103,7 +245,6 @@ export function CandidateProfile() {
 
   if (!profile) return <div className="p-8 text-gray-500">Profile not found.</div>;
 
-  // Collapsed summaries
   const signalSummaryText = profile.overallSummary.split('.')[0] + '.';
 
   return (
@@ -135,6 +276,18 @@ export function CandidateProfile() {
           )}
         </Card>
 
+        {/* ── Completeness bar (own profile only) ── */}
+        {ownProfile && (
+          <CompletenessBar
+            roleCount={recentRoles.length}
+            taskCount={profile.tasks.length}
+            roleAnswers={roleAnswers}
+            taskReflections={taskReflections}
+            roleIds={recentRoles.map((r) => r.id)}
+            taskIds={profile.tasks.map((t) => t.id)}
+          />
+        )}
+
         {/* ── Collapsible sections ── */}
         <div className="space-y-2">
 
@@ -142,9 +295,7 @@ export function CandidateProfile() {
           <CollapsibleSection
             label={`Signal profile · ${profile.roleFamily.replace('-', ' ')}`}
             defaultOpen
-            summary={
-              <p className="text-sm text-gray-600 truncate">{signalSummaryText}</p>
-            }
+            summary={<p className="text-sm text-gray-600 truncate">{signalSummaryText}</p>}
           >
             <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
               <p className="text-sm text-gray-700 leading-relaxed">{profile.overallSummary}</p>
@@ -189,7 +340,7 @@ export function CandidateProfile() {
                 </p>
               }
             >
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {recentRoles.map((role) => {
                   const answered = roleAnswers[role.id]?.trim().length > 0;
                   return (
@@ -232,7 +383,7 @@ export function CandidateProfile() {
             summary={
               <div className="flex items-center gap-3">
                 <span className="text-sm text-gray-500">{profile.tasks.length} tasks</span>
-                <div className="flex flex-wrap gap-1 flex-1 min-w-0 overflow-hidden">
+                <div className="flex flex-wrap gap-1">
                   {[...new Set(profile.tasks.map((t) => TASK_TYPE_LABELS[t.type]))].map((label) => (
                     <Badge key={label} variant="neutral" size="sm">{label}</Badge>
                   ))}
@@ -240,9 +391,9 @@ export function CandidateProfile() {
               </div>
             }
           >
-            <div className="space-y-4">
+            <div className="space-y-6">
               {profile.tasks.map((task, index) => (
-                <div key={task.id} className="border-b border-gray-100 last:border-0 pb-4 last:pb-0">
+                <div key={task.id} className="border-b border-gray-100 last:border-0 pb-6 last:pb-0">
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wider mb-1">
@@ -299,6 +450,16 @@ export function CandidateProfile() {
                       ))}
                     </div>
                   )}
+
+                  {/* Reflection prompt — own profile only */}
+                  {ownProfile && (
+                    <TaskReflection
+                      taskId={task.id}
+                      type={task.type}
+                      reflection={taskReflections[task.id] ?? ''}
+                      onChange={(v) => setTaskReflection(task.id, v)}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -310,7 +471,7 @@ export function CandidateProfile() {
             summary={
               <div className="flex items-center gap-3">
                 <span className="text-sm text-gray-500">{profile.evidenceSnippets.length} snippets</span>
-                <div className="flex flex-wrap gap-1 overflow-hidden">
+                <div className="flex flex-wrap gap-1">
                   {[...new Set(profile.evidenceSnippets.map((s) => s.dimension))].slice(0, 4).map((dim) => (
                     <Badge key={dim} variant="default" size="sm">{dim.replace('-', ' ')}</Badge>
                   ))}
