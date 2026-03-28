@@ -214,7 +214,7 @@ export function TaskDiscovery() {
                     <CheckCircle2 size={22} className="text-emerald-400" />
                   ) : (
                     <Link
-                      to="/candidate/tasks"
+                      to="/candidate/signal-tasks"
                       className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-xs font-medium rounded-xl hover:bg-indigo-700 transition-colors whitespace-nowrap"
                     >
                       Start task
