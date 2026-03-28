@@ -11,7 +11,7 @@ export function HomePage() {
           Rethinking how mutual fit works
         </div>
         <h1 className="text-5xl font-semibold text-gray-900 tracking-tight leading-tight mb-6">
-          Show fit with evidence,<br />not just claims
+          Because "results-driven team player" is not a personality.
         </h1>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-12">
           Signal replaces CVs and vague job descriptions with short, role-relevant interactions —
