@@ -8,6 +8,10 @@ import './styles/themes.css';
 import { HomePage } from './pages/landing/HomePage';
 import { HowItWorksPage } from './pages/landing/HowItWorksPage';
 
+// Audience landing pages
+import { CandidateLanding } from './pages/candidate/CandidateLanding';
+import { EmployerLanding } from './pages/employer/EmployerLanding';
+
 // Candidate
 import { CandidateSignUp } from './pages/candidate/CandidateSignUp';
 import { LinkedInImport } from './pages/candidate/LinkedInImport';
@@ -41,6 +45,10 @@ function AppShell() {
             {/* Public */}
             <Route path="/" element={<HomePage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
+
+            {/* Audience landing pages */}
+            <Route path="/candidate" element={<CandidateLanding />} />
+            <Route path="/employer" element={<EmployerLanding />} />
 
             {/* Candidate — sign-up & LinkedIn import */}
             <Route path="/candidate/signup" element={<CandidateSignUp />} />

@@ -19,8 +19,8 @@ function BrandIcon() {
 
 export function Navbar() {
   const location = useLocation();
-  const isCandidatePath = location.pathname.startsWith('/candidate');
-  const isEmployerPath = location.pathname.startsWith('/employer');
+  const isCandidatePath = location.pathname === '/candidate' || location.pathname.startsWith('/candidate/');
+  const isEmployerPath = location.pathname === '/employer' || location.pathname.startsWith('/employer/');
 
   return (
     <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
@@ -45,7 +45,7 @@ export function Navbar() {
             How it works
           </Link>
           <Link
-            to="/candidate/dashboard"
+            to="/candidate"
             className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
               isCandidatePath
                 ? 'text-indigo-700 bg-indigo-50'
@@ -55,7 +55,7 @@ export function Navbar() {
             Candidate
           </Link>
           <Link
-            to="/employer/dashboard"
+            to="/employer"
             className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
               isEmployerPath
                 ? 'text-indigo-700 bg-indigo-50'
