@@ -71,6 +71,32 @@ export function CandidateProfile() {
             </div>
           </Card>
 
+          {candidate.importedProfile?.roles && candidate.importedProfile.roles.length > 0 && (
+            <Card padding="md">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Work history</p>
+              <div className="space-y-3">
+                {candidate.importedProfile.roles
+                  .slice()
+                  .sort((a, b) => (b.startDate > a.startDate ? 1 : -1))
+                  .slice(0, 3)
+                  .map((role) => {
+                    const fmt = (d: string | null) => {
+                      if (!d) return 'Present';
+                      const [year, month] = d.split('-');
+                      return `${new Date(Number(year), Number(month) - 1).toLocaleString('default', { month: 'short' })} ${year}`;
+                    };
+                    return (
+                      <div key={role.id} className="border-l-2 border-indigo-100 pl-3">
+                        <p className="text-sm font-medium text-gray-800">{role.title}</p>
+                        <p className="text-xs text-gray-500">{role.company}</p>
+                        <p className="text-xs text-gray-400 mt-0.5">{fmt(role.startDate)} — {fmt(role.endDate)}</p>
+                      </div>
+                    );
+                  })}
+              </div>
+            </Card>
+          )}
+
           <Card padding="md">
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Strengths</p>
             <div className="flex flex-wrap gap-1.5 mb-3">

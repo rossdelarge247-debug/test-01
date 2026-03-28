@@ -212,7 +212,7 @@ export function ReviewImportedProfile() {
 
   function handleContinue() {
     setImportedProfile(profile);
-    navigate('/candidate/recommended-signals');
+    navigate('/candidate/role-questions');
   }
 
   const [firstName, ...rest] = profile.fullName.split(' ');
