@@ -5,8 +5,8 @@ import { ROLE_FIT_PACKS } from '../../data/roles';
 import { FIT_ANALYSES } from '../../data/fitAnalysis';
 import { Card } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
-import { Avatar } from '../../components/ui/Avatar';
 import { PageLayout, PageHeader } from '../../components/layout/PageLayout';
+import { ProfileAvatar, getAvatarStage } from '../../components/avatar/ProfileAvatar';
 
 // The prototype's "logged-in" candidate
 const ME_ID = 'c1';
@@ -26,6 +26,9 @@ export function CandidateDashboard() {
   const myAnalyses = FIT_ANALYSES.filter((fa) => fa.signalProfileId === me.signalProfileId);
 
   const strongCount = myAnalyses.filter((fa) => fa.fitStatus === 'strong-alignment').length;
+  const totalTasks = 5;
+  const tasksCompleted = myProfile ? totalTasks : 0;
+  const avatarStage = getAvatarStage(tasksCompleted, totalTasks, myAnalyses.length > 0);
 
   return (
     <PageLayout>
@@ -49,7 +52,7 @@ export function CandidateDashboard() {
         <div className="col-span-2">
           <Card padding="md">
             <div className="flex items-start gap-4 mb-5">
-              <Avatar initials={me.avatarInitials} color="indigo" size="lg" />
+              <ProfileAvatar stage={avatarStage} size={64} showLabel />
               <div className="min-w-0 flex-1">
                 <p className="font-semibold text-gray-900">
                   {me.firstName} {me.lastName}
