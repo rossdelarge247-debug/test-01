@@ -7,6 +7,7 @@ import './styles/themes.css';
 // Landing
 import { HomePage } from './pages/landing/HomePage';
 import { HowItWorksPage } from './pages/landing/HowItWorksPage';
+import { AboutPage } from './pages/landing/AboutPage';
 
 // Audience landing pages
 import { CandidateLanding } from './pages/candidate/CandidateLanding';
@@ -45,6 +46,7 @@ function AppShell() {
             {/* Public */}
             <Route path="/" element={<HomePage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/about" element={<AboutPage />} />
 
             {/* Audience landing pages */}
             <Route path="/candidate" element={<CandidateLanding />} />

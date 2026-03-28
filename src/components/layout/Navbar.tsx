@@ -39,10 +39,10 @@ export function Navbar() {
 
         <div className="flex items-center gap-1">
           <Link
-            to="/how-it-works"
+            to="/about"
             className="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-colors"
           >
-            How it works
+            About
           </Link>
           <Link
             to="/candidate"
