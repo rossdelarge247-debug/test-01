@@ -24,6 +24,8 @@ export const BLANK_SIGNAL_TASKS: SignalTask[] = [
       'You have joined a team where delivery is slipping, stakeholders are frustrated, and the team lacks a shared view of priorities. Rank the following actions in the order you would take them first.',
     timeLimit: 5,
     responseFormat: 'ranked list',
+    roleFamilies: ['product', 'operations', 'programme-delivery'],
+    popularity: 312,
     rankingItems: [
       { id: 'a', label: 'Map the current state and identify where blockers actually sit' },
       { id: 'b', label: 'Facilitate a session to establish a shared view of priorities' },
@@ -40,6 +42,8 @@ export const BLANK_SIGNAL_TASKS: SignalTask[] = [
       'In this role, which trade-off feels most natural to you? Choose the one that reflects how you genuinely tend to operate — not what sounds best.',
     timeLimit: 3,
     responseFormat: 'selection + rationale',
+    roleFamilies: ['product', 'service-design', 'operations', 'customer-success', 'programme-delivery'],
+    popularity: 489,
     tradeoffOptions: [
       { id: 'a', label: 'Speed over polish', description: 'Move fast, iterate later, prefer progress to perfection' },
       { id: 'b', label: 'Alignment over autonomy', description: 'Build shared buy-in before moving forward' },
@@ -56,6 +60,8 @@ export const BLANK_SIGNAL_TASKS: SignalTask[] = [
     timeLimit: 7,
     responseFormat: 'short written response (max 300 words)',
     dimension: 'stakeholder-sensitivity',
+    roleFamilies: ['product', 'service-design', 'customer-success'],
+    popularity: 256,
   },
   {
     id: 'task-4',
@@ -68,6 +74,8 @@ export const BLANK_SIGNAL_TASKS: SignalTask[] = [
     critiqueArtifact:
       '"We need to redesign the onboarding experience. Users are dropping off. The project will take 8 weeks. We need wireframes and a user journey map. Deliverables due end of month."',
     dimension: 'structured-thinking',
+    roleFamilies: ['service-design', 'product', 'programme-delivery'],
+    popularity: 198,
   },
   {
     id: 'task-5',
@@ -79,6 +87,8 @@ export const BLANK_SIGNAL_TASKS: SignalTask[] = [
     responseFormat: 'freehand sketch',
     sketchPrompt: 'Show the stages work passes through — from request to done',
     sketchPlaceholder: 'Sketch your team\'s work flow — stages, handoffs, decision points',
+    roleFamilies: ['operations', 'programme-delivery', 'product'],
+    popularity: 167,
   },
 ];
 
@@ -90,6 +100,8 @@ export const SKETCH_TASKS: SignalTask[] = [
     id: 'sketch-a',
     type: 'sketch',
     title: 'Sketch your ideal team structure',
+    roleFamilies: ['product', 'programme-delivery'],
+    popularity: 143,
     instructions:
       'Draw the shape of a team structure that you think works well for the kind of role you are applying for. Think about reporting lines, cross-functional relationships, and where decisions get made. It does not need to be a formal org chart — a rough diagram that reflects how you think about team design is more useful.',
     timeLimit: 10,
@@ -101,6 +113,8 @@ export const SKETCH_TASKS: SignalTask[] = [
     id: 'sketch-b',
     type: 'sketch',
     title: 'Map a discovery process',
+    roleFamilies: ['product', 'service-design'],
+    popularity: 201,
     instructions:
       'Sketch how you would approach the discovery phase of a poorly-defined problem. A stakeholder has told you "users are struggling with onboarding" but there is no existing research, no clear scope, and a six-week timeline. Show how you would move from ambiguity to a clear direction.',
     timeLimit: 12,
@@ -112,6 +126,8 @@ export const SKETCH_TASKS: SignalTask[] = [
     id: 'sketch-c',
     type: 'sketch',
     title: 'Draw a prioritisation framework',
+    roleFamilies: ['product', 'operations', 'programme-delivery'],
+    popularity: 178,
     instructions:
       'You are sitting down with a team that has 20 potential pieces of work and no agreed way to prioritise them. Sketch the framework or approach you would use to help the team get to a shared, defensible priority order. You can draw a matrix, a set of criteria, a scoring approach, or anything else that reflects how you actually think about prioritisation.',
     timeLimit: 10,
@@ -123,6 +139,8 @@ export const SKETCH_TASKS: SignalTask[] = [
     id: 'sketch-d',
     type: 'sketch',
     title: 'Visualise a service or system you know well',
+    roleFamilies: ['operations', 'service-design', 'customer-success'],
+    popularity: 124,
     instructions:
       'Pick a service, product, or internal system you have worked with that had a complexity problem — where things were hard to understand, hand off, or improve. Sketch it as it actually was: the parts, the connections, the gaps. Then mark where the biggest friction was and what you would have changed.',
     timeLimit: 15,
@@ -134,6 +152,8 @@ export const SKETCH_TASKS: SignalTask[] = [
     id: 'sketch-e',
     type: 'sketch',
     title: 'Sketch how you think about stakeholder relationships',
+    roleFamilies: ['product', 'service-design', 'operations', 'customer-success', 'programme-delivery'],
+    popularity: 287,
     instructions:
       'In complex roles, managing stakeholder relationships is as important as the work itself. Sketch how you think about and map stakeholders in a new role or project — who you would prioritise, how you would think about influence and interest, and how you would plan your engagement. Show your mental model, not a textbook answer.',
     timeLimit: 10,

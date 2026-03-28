@@ -82,6 +82,9 @@ export interface SignalTask {
   extractedTags?: string[];
   dimension?: string;
   dimensionScore?: number;
+  // Discovery metadata
+  roleFamilies?: RoleFamily[];
+  popularity?: number; // number of employer requests / candidate completions
 }
 
 export interface SignalProfile {

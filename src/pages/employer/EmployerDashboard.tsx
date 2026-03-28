@@ -1,12 +1,30 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Plus, Users } from 'lucide-react';
+import { ArrowRight, Plus, Users, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { ROLE_FIT_PACKS, EMPLOYERS } from '../../data/roles';
 import { CANDIDATES, SIGNAL_PROFILES } from '../../data/candidates';
 import { FIT_ANALYSES } from '../../data/fitAnalysis';
+import { BLANK_SIGNAL_TASKS } from '../../data/tasks';
 import { Card } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
 import { Avatar } from '../../components/ui/Avatar';
 import { PageLayout, PageHeader } from '../../components/layout/PageLayout';
+
+type VoteDir = 'up' | 'down';
+interface TaskVote { up: number; down: number; myVote: VoteDir | null; }
+
+const SEED_VOTES: Record<string, TaskVote> = {
+  'task-1': { up: 28, down: 4,  myVote: null },
+  'task-2': { up: 45, down: 2,  myVote: null },
+  'task-3': { up: 31, down: 8,  myVote: null },
+  'task-4': { up: 22, down: 12, myVote: null },
+  'task-5': { up: 19, down: 5,  myVote: null },
+};
+
+const TYPE_LABELS: Record<string, string> = {
+  ranking: 'Ranking', tradeoff: 'Trade-off', scenario: 'Scenario',
+  critique: 'Critique', sketch: 'Sketch',
+};
 
 const FIT_STATUS_CONFIG = {
   'strong-alignment': { label: 'Strong alignment', variant: 'success' as const },
@@ -19,6 +37,22 @@ const PACE_LABELS = { slow: 'Slow pace', moderate: 'Moderate pace', fast: 'Fast 
 const AMBIGUITY_LABELS = { low: 'Low ambiguity', medium: 'Medium ambiguity', high: 'High ambiguity' };
 
 export function EmployerDashboard() {
+  const [votes, setVotes] = useState<Record<string, TaskVote>>(SEED_VOTES);
+
+  function handleVote(taskId: string, dir: VoteDir) {
+    setVotes((prev) => {
+      const v = prev[taskId];
+      if (!v) return prev;
+      let { up, down } = v;
+      if (v.myVote === 'up') up--;
+      if (v.myVote === 'down') down--;
+      const newVote: VoteDir | null = v.myVote === dir ? null : dir;
+      if (newVote === 'up') up++;
+      if (newVote === 'down') down++;
+      return { ...prev, [taskId]: { up, down, myVote: newVote } };
+    });
+  }
+
   return (
     <PageLayout>
       <PageHeader
@@ -138,6 +172,87 @@ export function EmployerDashboard() {
                       </Link>
                     );
                   })}
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+      {/* Task signal quality */}
+      <div className="mt-12">
+        <div className="mb-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Task quality</p>
+          <h2 className="text-xl font-semibold text-gray-900 tracking-tight">
+            How useful were these tasks?
+          </h2>
+          <p className="text-sm text-gray-500 mt-1">
+            Your votes help surface the highest-signal tasks for future candidates. Be honest — a task that felt unhelpful is useful feedback too.
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          {BLANK_SIGNAL_TASKS.map((task) => {
+            const v = votes[task.id];
+            if (!v) return null;
+            const total = v.up + v.down;
+            const pct = total > 0 ? Math.round((v.up / total) * 100) : 0;
+            const isTopTask = v.up === Math.max(...BLANK_SIGNAL_TASKS.map((t) => votes[t.id]?.up ?? 0));
+
+            return (
+              <Card key={task.id} padding="md">
+                <div className="flex items-start gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        {TYPE_LABELS[task.type]}
+                      </span>
+                      {isTopTask && (
+                        <span className="text-xs font-medium text-amber-700 bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-full">
+                          Top signal task
+                        </span>
+                      )}
+                    </div>
+                    <p className="font-medium text-gray-900 mb-2">{task.title}</p>
+
+                    {/* Usefulness bar */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-emerald-400 rounded-full transition-all duration-300"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-gray-500 w-14 text-right flex-shrink-0">
+                        {total > 0 ? `${pct}% useful` : 'No votes yet'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Vote buttons */}
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                    <button
+                      onClick={() => handleVote(task.id, 'up')}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${
+                        v.myVote === 'up'
+                          ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
+                          : 'bg-white border-gray-200 text-gray-500 hover:border-emerald-200 hover:text-emerald-600'
+                      }`}
+                    >
+                      <ThumbsUp size={13} />
+                      {v.up}
+                    </button>
+                    <button
+                      onClick={() => handleVote(task.id, 'down')}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${
+                        v.myVote === 'down'
+                          ? 'bg-rose-50 border-rose-200 text-rose-700'
+                          : 'bg-white border-gray-200 text-gray-500 hover:border-rose-200 hover:text-rose-600'
+                      }`}
+                    >
+                      <ThumbsDown size={13} />
+                      {v.down}
+                    </button>
+                  </div>
                 </div>
               </Card>
             );

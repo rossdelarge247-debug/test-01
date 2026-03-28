@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Users, Trophy, Zap, TrendingUp } from 'lucide-react';
+import { ArrowRight, Users, Trophy, TrendingUp, Search } from 'lucide-react';
 import { CANDIDATES, SIGNAL_PROFILES } from '../../data/candidates';
 import { ROLE_FIT_PACKS } from '../../data/roles';
 import { FIT_ANALYSES } from '../../data/fitAnalysis';
@@ -38,11 +38,11 @@ export function CandidateDashboard() {
         subtitle="Your signal profile and how you compare to the field."
         actions={
           <Link
-            to="/candidate/signup"
+            to="/candidate/discover-tasks"
             className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 transition-colors"
           >
-            <Zap size={15} />
-            Add signal profile
+            <Search size={15} />
+            Discover more tasks
           </Link>
         }
       />
@@ -250,22 +250,22 @@ export function CandidateDashboard() {
         );
       })}
 
-      {/* Add profile CTA */}
+      {/* Discover tasks CTA */}
       <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-6 flex items-center gap-6">
         <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
-          <Zap size={18} className="text-indigo-600" />
+          <Search size={18} className="text-indigo-600" />
         </div>
         <div className="flex-1">
-          <p className="font-semibold text-indigo-900 mb-1">Add a new signal profile</p>
+          <p className="font-semibold text-indigo-900 mb-1">Add more signals to your profile</p>
           <p className="text-sm text-indigo-700 opacity-80">
-            Complete a signal pack for a different role family. Responses are short and take under 25 minutes.
+            Browse tasks by role type — see what employers are asking and complete the ones most relevant to where you're heading.
           </p>
         </div>
         <Link
-          to="/candidate/signup"
+          to="/candidate/discover-tasks"
           className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 transition-colors flex-shrink-0"
         >
-          Start
+          Discover tasks
           <ArrowRight size={14} />
         </Link>
       </div>

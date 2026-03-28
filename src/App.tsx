@@ -24,6 +24,7 @@ import { RoleFamilySelection } from './pages/candidate/RoleFamilySelection';
 import { SignalTaskFlow } from './pages/candidate/SignalTaskFlow';
 import { ProfileComplete } from './pages/candidate/ProfileComplete';
 import { CandidateDashboard } from './pages/candidate/CandidateDashboard';
+import { TaskDiscovery } from './pages/candidate/TaskDiscovery';
 import { CandidateProfile } from './pages/candidate/CandidateProfile';
 import { CandidateFitExplorer } from './pages/candidate/CandidateFitExplorer';
 
@@ -65,6 +66,7 @@ function AppShell() {
             <Route path="/candidate/signal-tasks" element={<SignalTaskFlow />} />
             <Route path="/candidate/profile-complete" element={<ProfileComplete />} />
             <Route path="/candidate/dashboard" element={<CandidateDashboard />} />
+            <Route path="/candidate/discover-tasks" element={<TaskDiscovery />} />
             <Route path="/candidate/profile" element={<CandidateProfile />} />
             <Route path="/candidate/profile/:id" element={<CandidateProfile />} />
             <Route path="/candidate/fit/:id" element={<CandidateFitExplorer />} />
