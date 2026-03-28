@@ -87,7 +87,7 @@ export function HomePage() {
                 'Gut feel and cultural fit guesses',
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
-                  <span className="w-4 h-4 rounded-full bg-gray-200 flex-shrink-0" />
+                  <span className="flex-shrink-0 text-base leading-none">😞</span>
                   {item}
                 </li>
               ))}
@@ -104,7 +104,7 @@ export function HomePage() {
                 'Clear signals on trade-offs and ways of working',
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-sm text-indigo-700">
-                  <span className="w-4 h-4 rounded-full bg-indigo-200 flex-shrink-0" />
+                  <span className="flex-shrink-0 text-base leading-none">😊</span>
                   {item}
                 </li>
               ))}
