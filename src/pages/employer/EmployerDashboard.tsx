@@ -70,7 +70,7 @@ export function EmployerDashboard() {
         }
       />
 
-      <div className="grid grid-cols-2 gap-6 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         {ROLE_FIT_PACKS.map((role) => {
           const employer = EMPLOYERS.find((e) => e.id === role.employerId);
           const analyses = FIT_ANALYSES.filter((fa) => fa.roleFitPackId === role.id);
@@ -132,7 +132,7 @@ export function EmployerDashboard() {
           title="Signal profiles in pool"
           subtitle="Candidates who have completed signal profiles relevant to your roles."
         />
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {CANDIDATES.map((c, i) => {
             const profile = SIGNAL_PROFILES.find((sp) => sp.id === c.signalProfileId);
             const relevantAnalyses = FIT_ANALYSES.filter((fa) => fa.signalProfileId === c.signalProfileId);

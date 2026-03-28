@@ -27,56 +27,46 @@ export function CandidateSignUp() {
   return (
     <div className="max-w-lg mx-auto px-6 py-20">
       {/* Header */}
-      <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wider mb-3">
-        Candidate sign-up
-      </p>
-      <h1 className="text-4xl font-semibold text-gray-900 tracking-tight mb-3">
+      <div className="flex items-center gap-2 mb-4">
+        <span className="inline-flex items-center px-2.5 py-1 bg-indigo-50 rounded-full text-xs font-semibold text-indigo-600">
+          Step 1 of 3
+        </span>
+        <span className="text-xs text-gray-400">Import basics → Build your signal → Done</span>
+      </div>
+      <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 tracking-tight mb-3">
         Start with what you already have
       </h1>
-      <p className="text-lg text-gray-500 leading-relaxed mb-12">
-        Import your profile basics from LinkedIn, then build the part that actually shows fit.
+      <p className="text-lg text-gray-500 leading-relaxed mb-10">
+        Import the basics, then build the part a CV can't show — how you think, prioritise, and work through trade-offs.
       </p>
 
       {/* LinkedIn option */}
-      <div className="mb-3">
+      <div className="mb-8">
         <button
           onClick={handleLinkedIn}
-          className="w-full flex items-center gap-4 px-5 py-4 bg-white border-2 border-gray-200 rounded-2xl hover:border-indigo-300 hover:bg-indigo-50/30 transition-all group text-left"
+          className="w-full flex items-center gap-4 px-5 py-4 bg-white border-2 border-gray-200 rounded-t-2xl hover:border-indigo-300 hover:bg-indigo-50/30 transition-all group text-left"
         >
           <div className="w-10 h-10 bg-[#0A66C2] rounded-xl flex items-center justify-center text-white flex-shrink-0">
             <LinkedInIcon />
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-gray-900 text-sm">Continue with LinkedIn</p>
-            <p className="text-xs text-gray-500 mt-0.5">
-              Import name, headline, summary, and recent roles
-            </p>
+            <p className="text-xs text-gray-500 mt-0.5">Fastest — imports name, headline, summary, and recent roles</p>
           </div>
-          <ArrowRight
-            size={16}
-            className="text-gray-300 group-hover:text-indigo-500 transition-colors flex-shrink-0"
-          />
+          <ArrowRight size={16} className="text-gray-300 group-hover:text-indigo-500 transition-colors flex-shrink-0" />
         </button>
-      </div>
-
-      {/* What gets imported */}
-      <div className="mb-8 px-5 py-4 bg-gray-50 border border-gray-100 rounded-xl">
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2.5">
-          What we import
-        </p>
-        <ul className="space-y-1.5 text-xs text-gray-500">
-          {['Your name and professional headline', 'Your about / summary text', 'Your three most recent roles'].map(
-            (item) => (
-              <li key={item} className="flex items-center gap-2">
+        {/* What gets imported — attached below the button */}
+        <div className="px-5 py-3.5 bg-gray-50 border border-t-0 border-gray-200 rounded-b-2xl">
+          <ul className="flex flex-wrap gap-x-4 gap-y-1">
+            {['Name & headline', 'About / summary', '3 most recent roles'].map((item) => (
+              <li key={item} className="flex items-center gap-1.5 text-xs text-gray-500">
                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-300 flex-shrink-0" />
                 {item}
               </li>
-            )
-          )}
-        </ul>
-        <p className="text-xs text-gray-400 mt-3 leading-relaxed">
-          You can edit or remove anything before continuing. Nothing is locked in.
-        </p>
+            ))}
+          </ul>
+          <p className="text-xs text-gray-400 mt-1.5">Edit or remove anything before continuing.</p>
+        </div>
       </div>
 
       {/* Divider */}
@@ -89,7 +79,7 @@ export function CandidateSignUp() {
       {/* CV upload option */}
       <button
         onClick={() => navigate('/candidate/cv-upload')}
-        className="w-full flex items-center gap-4 px-5 py-4 bg-white border border-gray-200 rounded-2xl hover:border-gray-300 hover:bg-gray-50 transition-all group text-left"
+        className="w-full flex items-center gap-4 px-5 py-4 bg-white border border-gray-200 rounded-2xl hover:border-gray-300 hover:bg-gray-50 transition-all group text-left mb-2"
       >
         <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 flex-shrink-0">
           <FileText size={18} />
@@ -98,10 +88,7 @@ export function CandidateSignUp() {
           <p className="font-semibold text-gray-700 text-sm">Upload my CV instead</p>
           <p className="text-xs text-gray-400 mt-0.5">PDF, Word, or plain text — we extract the basics</p>
         </div>
-        <ArrowRight
-          size={16}
-          className="text-gray-300 group-hover:text-gray-500 transition-colors flex-shrink-0"
-        />
+        <ArrowRight size={16} className="text-gray-300 group-hover:text-gray-500 transition-colors flex-shrink-0" />
       </button>
 
       {/* Email option */}

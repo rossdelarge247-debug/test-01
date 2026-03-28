@@ -170,13 +170,13 @@ export function FitAnalysisPage() {
       </div>
 
       {/* Header */}
-      <div className={`rounded-2xl border p-6 mb-8 ${statusDisplay.bg}`}>
-        <div className="flex items-start justify-between gap-4">
+      <div className={`rounded-2xl border p-5 sm:p-6 mb-8 ${statusDisplay.bg}`}>
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="flex items-center gap-4">
             <Avatar initials={candidate.avatarInitials} color={avatarColor} size="xl" />
             <div>
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Fit analysis</p>
-              <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 tracking-tight">
                 {candidate.firstName} {candidate.lastName}
               </h1>
               <p className="text-gray-500 text-sm">
@@ -184,9 +184,9 @@ export function FitAnalysisPage() {
               </p>
             </div>
           </div>
-          <div className="text-right flex-shrink-0">
+          <div className="sm:text-right flex-shrink-0 flex sm:flex-col items-center sm:items-end gap-3">
             <Badge variant={statusDisplay.variant} size="md">{statusDisplay.label}</Badge>
-            <div className="mt-3 w-40">
+            <div className="sm:mt-2 w-40">
               <div className="flex justify-between text-xs text-gray-500 mb-1">
                 <span>Alignment</span>
                 <span className="font-medium text-gray-900">{analysis.alignmentScore}%</span>
@@ -200,8 +200,8 @@ export function FitAnalysisPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-8">
-        <div className="col-span-2 space-y-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-8">
           {/* Strengths */}
           <section>
             <h2 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">

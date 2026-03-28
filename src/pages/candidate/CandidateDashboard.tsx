@@ -48,7 +48,7 @@ export function CandidateDashboard() {
       />
 
       {/* Profile summary + stats */}
-      <div className="grid grid-cols-3 gap-6 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         <div className="col-span-2">
           <Card padding="md">
             <div className="flex items-start gap-4 mb-5">
@@ -134,7 +134,7 @@ export function CandidateDashboard() {
               <p className="text-xs text-gray-700 font-medium">{role?.roleTitle}</p>
             </div>
 
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Your result */}
               <Card padding="md" className="border-indigo-100 bg-indigo-50/30 flex flex-col">
                 <div className="flex items-center justify-between mb-4">

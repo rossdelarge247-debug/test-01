@@ -39,7 +39,9 @@ export function SignalAnalysisCard({ state, result, error }: Props) {
         <Loader2 size={16} className="text-indigo-500 animate-spin flex-shrink-0" />
         <div>
           <p className="text-sm font-medium text-indigo-700">Reading your response…</p>
-          <p className="text-xs text-indigo-500 mt-0.5">Analysing signal strength and extracting evidence</p>
+          <p className="text-xs text-indigo-500 mt-0.5">
+            Analysing signal strength and extracting evidence · usually 5–10 seconds
+          </p>
         </div>
       </div>
     );

@@ -23,7 +23,7 @@ export function TradeoffTask({ options, onSelect }: TradeoffTaskProps) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {options.map((option) => (
           <button
             key={option.id}
