@@ -244,3 +244,194 @@
 [data-theme="hinge"] .bg-gray-50.border-y {
   background-color: #f4efe8;
 }
+
+
+/* ── VOLT ────────────────────────────────────────────────── */
+/* Dark, electric, flat. Near-black + lime. Space Grotesk.    */
+/* No borders. No shadows. Sharp corners. Bold statements.    */
+
+[data-theme="volt"] {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ── Backgrounds ── */
+[data-theme="volt"] .min-h-screen,
+[data-theme="volt"] .bg-gray-50 {
+  background-color: #0a0a0a;
+}
+[data-theme="volt"] .bg-white {
+  background-color: #161616;
+}
+[data-theme="volt"] .bg-gray-100 {
+  background-color: #1e1e1e;
+}
+
+/* "How it works" stripe */
+[data-theme="volt"] .bg-gray-50.border-y {
+  background-color: #111111;
+  border-color: transparent;
+}
+
+/* ── Navbar ── */
+[data-theme="volt"] nav {
+  background-color: #0a0a0a;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+[data-theme="volt"] nav .text-gray-900 {
+  color: #ffffff;
+}
+[data-theme="volt"] nav .text-gray-500 {
+  color: #888888;
+}
+[data-theme="volt"] nav .hover\:text-gray-900:hover {
+  color: #ffffff;
+}
+[data-theme="volt"] nav .hover\:bg-gray-50:hover {
+  background-color: #1e1e1e;
+}
+
+/* ── Borders — wipe them all out ── */
+[data-theme="volt"] .border,
+[data-theme="volt"] .border-t,
+[data-theme="volt"] .border-b,
+[data-theme="volt"] .border-l,
+[data-theme="volt"] .border-r,
+[data-theme="volt"] .border-y {
+  border-color: transparent;
+}
+[data-theme="volt"] .border-gray-100,
+[data-theme="volt"] .border-gray-200,
+[data-theme="volt"] .border-gray-300 {
+  border-color: transparent;
+}
+[data-theme="volt"] .divide-gray-100 > * + * {
+  border-color: #222222;
+}
+
+/* ── Text ── */
+[data-theme="volt"] .text-gray-900 { color: #ffffff; }
+[data-theme="volt"] .text-gray-800 { color: #f0f0f0; }
+[data-theme="volt"] .text-gray-700 { color: #cccccc; }
+[data-theme="volt"] .text-gray-600 { color: #aaaaaa; }
+[data-theme="volt"] .text-gray-500 { color: #888888; }
+[data-theme="volt"] .text-gray-400 { color: #666666; }
+[data-theme="volt"] .text-gray-300 { color: #555555; }
+
+/* ── Primary accent: electric lime ── */
+[data-theme="volt"] .bg-indigo-600 {
+  background-color: #cfff04;
+  color: #0a0a0a;
+}
+[data-theme="volt"] .hover\:bg-indigo-700:hover {
+  background-color: #b8e603;
+  color: #0a0a0a;
+}
+[data-theme="volt"] .bg-indigo-700 {
+  background-color: #b8e603;
+}
+[data-theme="volt"] .bg-indigo-600 .text-white,
+[data-theme="volt"] .bg-indigo-600.text-white,
+[data-theme="volt"] a.bg-indigo-600,
+[data-theme="volt"] button.bg-indigo-600 {
+  color: #0a0a0a;
+}
+[data-theme="volt"] .bg-indigo-50 {
+  background-color: #1a2200;
+}
+[data-theme="volt"] .bg-indigo-100 {
+  background-color: #233000;
+}
+[data-theme="volt"] .text-indigo-600 { color: #cfff04; }
+[data-theme="volt"] .text-indigo-700 { color: #cfff04; }
+[data-theme="volt"] .text-indigo-800 { color: #b8e603; }
+[data-theme="volt"] .text-indigo-900 { color: #cfff04; }
+[data-theme="volt"] .text-indigo-400,
+[data-theme="volt"] .text-indigo-500 { color: #8fb800; }
+[data-theme="volt"] .border-indigo-100,
+[data-theme="volt"] .border-indigo-200 { border-color: transparent; }
+[data-theme="volt"] .bg-indigo-50.text-indigo-700 {
+  background-color: #1a2200;
+  color: #cfff04;
+}
+
+/* ── CTA dark section — flipped to lime ── */
+[data-theme="volt"] .bg-gray-900 {
+  background-color: #cfff04;
+}
+[data-theme="volt"] .bg-gray-900 .text-white {
+  color: #0a0a0a;
+}
+[data-theme="volt"] .bg-gray-900 .text-gray-400 {
+  color: #3a4a00;
+}
+[data-theme="volt"] .bg-gray-900 .bg-white {
+  background-color: #0a0a0a;
+}
+[data-theme="volt"] .bg-gray-900 .text-gray-900 {
+  color: #ffffff;
+}
+[data-theme="volt"] .bg-gray-900 .border-gray-700 {
+  border-color: transparent;
+}
+[data-theme="volt"] .bg-gray-900 .text-gray-300 {
+  color: #2a3a00;
+}
+[data-theme="volt"] .bg-gray-900 .hover\:bg-gray-800:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+/* ── Cards — no shadow, flat ── */
+[data-theme="volt"] .shadow-sm { box-shadow: none; }
+[data-theme="volt"] .shadow { box-shadow: none; }
+[data-theme="volt"] .shadow-md { box-shadow: none; }
+
+/* ── Sharp corners ── */
+[data-theme="volt"] .rounded-lg  { border-radius: 4px; }
+[data-theme="volt"] .rounded-xl  { border-radius: 6px; }
+[data-theme="volt"] .rounded-2xl { border-radius: 8px; }
+[data-theme="volt"] .rounded-3xl { border-radius: 10px; }
+[data-theme="volt"] .rounded-full { border-radius: 9999px; }
+
+/* ── Typography ── */
+[data-theme="volt"] h1,
+[data-theme="volt"] h2,
+[data-theme="volt"] h3,
+[data-theme="volt"] h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+[data-theme="volt"] h1 {
+  font-size: 3.75rem;
+  line-height: 1.05;
+}
+
+/* ── Misc component overrides ── */
+[data-theme="volt"] .backdrop-blur-md {
+  backdrop-filter: none;
+}
+/* Secondary button outlines */
+[data-theme="volt"] .bg-white.border.border-gray-200 {
+  background-color: #1e1e1e;
+  border-color: transparent;
+}
+/* Hover states on light backgrounds */
+[data-theme="volt"] .hover\:bg-gray-50:hover { background-color: #1e1e1e; }
+[data-theme="volt"] .hover\:bg-gray-100:hover { background-color: #252525; }
+/* Badge neutral */
+[data-theme="volt"] .bg-gray-100.text-gray-700 {
+  background-color: #2a2a2a;
+  color: #cccccc;
+}
+/* Input fields */
+[data-theme="volt"] input,
+[data-theme="volt"] textarea {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border-color: #333333;
+}
+[data-theme="volt"] input::placeholder,
+[data-theme="volt"] textarea::placeholder {
+  color: #555555;
+}

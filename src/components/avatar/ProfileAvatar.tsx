@@ -170,6 +170,47 @@ function SignalAvatar({ stage }: { stage: AvatarStage }) {
   );
 }
 
+// ── Volt: 3×3 Dot Grid ───────────────────────────────────────────────────────
+// Fills from centre outward: centre → cross → full grid → grid + outer frame.
+
+const DOT_POS = [
+  { x: 12, y: 12 }, { x: 24, y: 12 }, { x: 36, y: 12 },
+  { x: 12, y: 24 }, { x: 24, y: 24 }, { x: 36, y: 24 },
+  { x: 12, y: 36 }, { x: 24, y: 36 }, { x: 36, y: 36 },
+];
+// Indices filled at each stage
+const VOLT_FILLED: number[][] = [
+  [],
+  [4],
+  [1, 3, 4, 5, 7],
+  [0, 1, 2, 3, 4, 5, 6, 7, 8],
+  [0, 1, 2, 3, 4, 5, 6, 7, 8],
+];
+
+function VoltAvatar({ stage }: { stage: AvatarStage }) {
+  const lime = '#CFFF04';
+  const filled = new Set(VOLT_FILLED[stage]);
+  return (
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {stage === 4 && (
+        <rect x="4" y="4" width="40" height="40" rx="2"
+          stroke={lime} strokeWidth="0.75" strokeDasharray="3 2.5" opacity="0.4"
+        />
+      )}
+      {DOT_POS.map((pos, i) => (
+        <circle
+          key={i}
+          cx={pos.x} cy={pos.y}
+          r={stage === 4 && filled.has(i) ? 4.5 : 4}
+          fill={filled.has(i) ? lime : 'none'}
+          stroke={filled.has(i) ? 'none' : '#3a3a3a'}
+          strokeWidth="1"
+        />
+      ))}
+    </svg>
+  );
+}
+
 // ── Main export ───────────────────────────────────────────────────────────────
 
 interface ProfileAvatarProps {
@@ -184,6 +225,7 @@ export function ProfileAvatar({ stage, size = 56, showLabel = false }: ProfileAv
   const avatar =
     themeId === 'bumble' ? <BumbleAvatar stage={stage} /> :
     themeId === 'hinge'  ? <SignalAvatar stage={stage} /> :
+    themeId === 'volt'   ? <VoltAvatar stage={stage} /> :
                            <CorporateAvatar stage={stage} />;
 
   return (

@@ -1,4 +1,4 @@
-export type ThemeId = 'corporate' | 'bumble' | 'hinge';
+export type ThemeId = 'corporate' | 'bumble' | 'hinge' | 'volt';
 
 export interface Theme {
   id: ThemeId;
@@ -25,5 +25,11 @@ export const THEMES: Theme[] = [
     name: 'Hinge',
     description: 'Warm & editorial',
     dot: '#1a4731',
+  },
+  {
+    id: 'volt',
+    name: 'Volt',
+    description: 'Bold & electric',
+    dot: '#CFFF04',
   },
 ];
